@@ -1,0 +1,24 @@
+{
+  "name": "بوابة تنسيق الصعيدي 2026",
+  "short_name": "التنسيق الذكي",
+  "description": "دليلك الكامل لتنسيق الثانوية العامة وترتيب الرغبات بذكاء",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

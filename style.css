@@ -1,0 +1,111 @@
+/* 1. الأساسيات - خطوط وألوان مريحة للعين */
+:root {
+    --primary: #1e3a8a;
+    --secondary: #fbbf24;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #334155;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent; /* تحسين اللمس للموبايل */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden; /* منع الهزهزة الجانبية */
+}
+
+.container {
+    width: 100%;
+    max-width: 600px; /* أنسب عرض للموبايل والتابلت */
+    margin: 0 auto;
+    padding: 15px;
+}
+
+/* 2. الهيدر والكروت */
+header {
+    text-align: center;
+    padding: 20px 0;
+    background: var(--primary);
+    color: white;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+header h1 { font-size: 1.4rem; padding: 0 10px; }
+
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+
+/* 3. الفورم والمدخلات - تحسين تجربة الموبايل */
+.form-control {
+    width: 100%;
+    padding: 12px; /* تكبير المساحة للضغط بالصابع بسهولة */
+    margin: 8px 0 15px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 16px; /* مهم جداً عشان الموبايل ميعملش Zoom أوتوماتيك */
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s;
+    font-size: 1rem;
+}
+
+.btn:active { transform: scale(0.98); } /* تأثير ضغطة الصابع */
+
+.btn-primary { background: var(--primary); color: white; }
+.btn-elmy { background: #0ea5e9; color: white; margin-bottom: 5px;}
+.btn-adaby { background: #ec4899; color: white; }
+
+/* 4. الجدول المتجاوب - حل مشكلة الجداول الكبيرة */
+.results-table-container {
+    width: 100%;
+    overflow-x: auto; /* السماح بالتمرير الجانبي فقط للجدول */
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    min-width: 300px; /* ضمان عدم انضغاط الكلام */
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* 5. الميديا كويري للشاشات الأكبر (تابلت/لابتوب) */
+@media (min-width: 768px) {
+    .container { max-width: 800px; }
+    .btn-group { display: flex; gap: 10px; }
+    .btn-group .btn { flex: 1; }
+}
+
+/* تحسين الطباعة */
+@media print {
+    .no-print { display: none !important; }
+    .card { box-shadow: none; border: 1px solid #000; }
+}
