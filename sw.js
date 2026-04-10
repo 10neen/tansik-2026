@@ -1,4 +1,4 @@
-const CACHE_NAME = 's3ydy-tansik-v1'; 
+const CACHE_NAME = 's3ydy-tansik-v2';
 const assets = [
   './',
   './index.html',
@@ -7,36 +7,37 @@ const assets = [
   './elmy_data.js',
   './adaby_data.js',
   './manifest.json',
-  './logo.png' // ضروري جداً عشان الصورة تظهر وأنت أوفلاين
+  './header_bg.png', // لا تنسى إضافة الصورة الجديدة للكاش
+  './icon.png'        // وأيقونة الموقع
 ];
 
-// 1. تثبيت الخدمة وتخزين الملفات
+// 1. تثبيت الخدمة وتخزين الملفات (Install)
 self.addEventListener('install', evt => {
   evt.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('تم تخزين الملفات بنجاح.. الموقع جاهز للعمل أوفلاين!');
+      console.log('تم تخزين ملفات بوابة الصعيدي بنجاح');
       return cache.addAll(assets);
     })
   );
 });
 
-// 2. تحديث الكاش (حذف النسخ القديمة) - حركة احترافية
+// 2. تفعيل الخدمة وتنظيف الكاش القديم (Activate)
 self.addEventListener('activate', evt => {
   evt.waitUntil(
     caches.keys().then(keys => {
-      return Promise.all(keys
-        .filter(key => key !== CACHE_NAME)
-        .map(key => caches.delete(key))
+      return Promise.all(
+        keys.filter(key => key !== CACHE_NAME)
+            .map(key => caches.delete(key))
       );
     })
   );
 });
 
-// 3. تشغيل الموقع من المخزن (حتى لو مفيش نت)
+// 3. تشغيل الموقع من المخزن (Fetch)
 self.addEventListener('fetch', evt => {
   evt.respondWith(
     caches.match(evt.request).then(cacheRes => {
-      // بيرجع الملف من الكاش، ولو مش موجود بيروح يجيبه من النت
+      // لو الملف موجود في الكاش رجعه، لو مش موجود هاته من النت
       return cacheRes || fetch(evt.request);
     })
   );
