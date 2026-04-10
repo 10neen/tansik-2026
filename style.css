@@ -1,17 +1,25 @@
-/* 1. الأساسيات - خطوط وألوان مريحة للعين */
+/* ==========================================
+   1. الأساسيات والمتغيرات (The Engine)
+   ========================================== */
 :root {
     --primary: #1e3a8a;
     --secondary: #fbbf24;
-    --bg: #f8fafc;
+    --bg: #f1f5f9;
     --card-bg: #ffffff;
-    --text: #334155;
+    --text: #1e293b;
+    --zone-a: #dcfce7;
+    --zone-b: #dbeafe;
+    --zone-c: #fee2e2;
+    --zone-a-dark: #16a34a; 
+    --zone-b-dark: #2563eb;
+    --zone-c-dark: #dc2626;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    -webkit-tap-highlight-color: transparent; /* تحسين اللمس للموبايل */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -19,20 +27,22 @@ body {
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.6;
-    overflow-x: hidden; /* منع الهزهزة الجانبية */
+    direction: rtl;
 }
 
 .container {
     width: 100%;
-    max-width: 600px; /* أنسب عرض للموبايل والتابلت */
+    max-width: 900px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 10px; /* تقليل الحشو للموبايلات الصغيرة */
 }
 
-/* 2. الهيدر والكروت */
+/* ==========================================
+   2. الهيدر (Header)
+   ========================================== */
 header {
     text-align: center;
-    padding: 20px 0;
+    padding: 20px 10px;
     background: var(--primary);
     color: white;
     border-radius: 0 0 20px 20px;
@@ -40,72 +50,275 @@ header {
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
 }
 
-header h1 { font-size: 1.4rem; padding: 0 10px; }
+/* ==========================================
+   3. زر ابدء التخيل (The Star)
+   ========================================== */
+#start-design button {
+    background: linear-gradient(45deg, #ff0000, #cc0000);
+    color: white;
+    font-size: clamp(1.1rem, 5vw, 1.5rem); /* حجم خط مرن */
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    display: block;
+    margin: 20px auto;
+    animation: pulse-red 2s infinite;
+}
 
-.card {
-    background: var(--card-bg);
-    border-radius: 12px;
+@keyframes pulse-red {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* ==========================================
+   4. قسم الأرشيف (Archive Section)
+   ========================================== */
+.archive-buttons-container {
+    text-align: center;
+    margin: 20px 0;
     padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background: #fff;
+    border-radius: 15px;
     border: 1px solid #e2e8f0;
 }
 
-/* 3. الفورم والمدخلات - تحسين تجربة الموبايل */
-.form-control {
-    width: 100%;
-    padding: 12px; /* تكبير المساحة للضغط بالصابع بسهولة */
-    margin: 8px 0 15px;
-    border-radius: 10px;
-    border: 1px solid #cbd5e1;
-    font-size: 16px; /* مهم جداً عشان الموبايل ميعملش Zoom أوتوماتيك */
-}
-
-.btn {
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: none;
+.archive-buttons-container button {
+    margin: 5px;
+    padding: 10px 20px;
     font-weight: bold;
+    border-radius: 8px;
+    border: none;
     cursor: pointer;
-    transition: transform 0.1s;
-    font-size: 1rem;
+    transition: 0.2s;
+    font-size: 0.9rem;
 }
 
-.btn:active { transform: scale(0.98); } /* تأثير ضغطة الصابع */
+.btn-elmy { background-color: var(--primary); color: white; }
+.btn-adaby { background-color: #be123c; color: white; }
 
-.btn-primary { background: var(--primary); color: white; }
-.btn-elmy { background: #0ea5e9; color: white; margin-bottom: 5px;}
-.btn-adaby { background: #ec4899; color: white; }
-
-/* 4. الجدول المتجاوب - حل مشكلة الجداول الكبيرة */
+/* ==========================================
+   5. الجدول الذكي (The Smart Table)
+   ========================================== */
 .results-table-container {
     width: 100%;
-    overflow-x: auto; /* السماح بالتمرير الجانبي فقط للجدول */
-    -webkit-overflow-scrolling: touch;
+    overflow-x: auto; /* مهم جداً للموبايل عشان الجدول ميزقش الشاشة */
+    background: #fff;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    margin-bottom: 20px;
 }
 
 table {
     width: 100%;
-    min-width: 300px; /* ضمان عدم انضغاط الكلام */
     border-collapse: collapse;
+    min-width: 300px; /* لضمان عدم انهيار الجدول في الشاشات الضيقة جداً */
 }
 
-th, td {
-    padding: 10px 8px;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f1f5f9;
+table thead th {
+    background-color: var(--primary);
+    color: white;
+    padding: 12px 8px;
+    font-size: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-/* 5. الميديا كويري للشاشات الأكبر (تابلت/لابتوب) */
-@media (min-width: 768px) {
-    .container { max-width: 800px; }
-    .btn-group { display: flex; gap: 10px; }
-    .btn-group .btn { flex: 1; }
+td {
+    /* padding: 12px 8px; */
+    font-size: clamp(0.9rem, 4vw, 1.1rem); /* خط كبير ومريح */
+    font-weight: 600;
+    border-bottom: 1px solid #edf2f7;
 }
 
-/* تحسين الطباعة */
+/* نطاقات الألوان */
+.row-zone-a { background-color: var(--zone-a) !important; border-right: 5px solid var(--zone-a-dark); }
+.row-zone-b { background-color: var(--zone-b) !important; border-right: 5px solid var(--zone-b-dark); }
+.row-zone-c { background-color: var(--zone-c) !important; border-right: 5px solid var(--zone-c-dark); }
+
+/* ==========================================
+   6. التجاوب والطباعة (Responsiveness)
+   ========================================== */
+@media (max-width: 600px) {
+    header { padding: 15px 5px; border-radius: 0 0 15px 15px; }
+    .container { padding: 8px; }
+    td { padding: 8px 5px; }
+    #start-design button { padding: 12px 25px; }
+}
+
 @media print {
-    .no-print { display: none !important; }
-    .card { box-shadow: none; border: 1px solid #000; }
+    .no-print, .map-link, #start-design, .archive-buttons-container { display: none !important; }
+    .results-table-container { border: none !important; overflow: visible !important; }
+    table { border: 1px solid #000; }
+    td, th { border: 1px solid #000 !important; color: #000 !important; }
+}
+
+/* زر حفظ PDF النهائي */
+.btn-pdf-final {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+
+
+function renderSmartTable(data, container, userLocation, sortType, locationMap) {
+    let scoreValue = document.getElementById('student-score').value;
+    let branchText = document.getElementById('student-branch').options[document.getElementById('student-branch').selectedIndex].text;
+
+    var tableHtml = `
+        <div class="print-only" style="text-align:center; margin-bottom:20px; display:none;">
+            <h2 style="color:#1e3a8a;">قائمة الرغبات المقترحة - بوابة الصعيدي 2026</h2>
+            <p>المجموع: <b>${scoreValue}</b> | الشعبة: <b>${branchText}</b></p>
+            <hr>
+        </div>`;
+
+    tableHtml += '<h3 class="no-print" style="margin:15px 0; color:#1e3a8a; text-align:center;">🎯 قائمة الرغبات الـ 75 المرتبة لك</h3>';
+    
+    tableHtml += '<div id="my-final-table" style="background:white; border:2px solid #ddd; border-radius:8px; overflow:hidden;">';
+    tableHtml += '<table style="width:100%; border-collapse:collapse; text-align:right;" dir="rtl">';
+    tableHtml += '<thead><tr style="background:#1e3a8a; color:white;">';
+    tableHtml += '<th style="width:50px; padding:12px; border:1px solid #ddd;">م</th>';
+    tableHtml += '<th style="padding:12px; border:1px solid #ddd;">الكلية والموقع الجغرافي 📍</th>';
+    tableHtml += '<th style="width:100px; padding:12px; border:1px solid #ddd;">تنسيق 2025</th>';
+    tableHtml += '</tr></thead><tbody>';
+
+    data.forEach(function(c, index) {
+        // تحديد النطاق واللون
+        var zoneLabel = "نطاق ج (بعيد)";
+        var bgColor = "#ffcccc"; // أحمر واضح لنطاق ج
+        var textColor = "#990000"; 
+
+        if (userLocation && locationMap[userLocation]) {
+            var zones = locationMap[userLocation];
+            if (zones.a.some(city => c.name.includes(city))) {
+                zoneLabel = "نطاق أ (محافظتك)";
+                bgColor = "#c6efce"; // أخضر واضح لنطاق أ
+                textColor = "#006100";
+            } else if (zones.b && zones.b.some(city => c.name.includes(city))) {
+                zoneLabel = "نطاق ب (مجاور)";
+                bgColor = "#deeaf6"; // سماوي واضح لنطاق ب
+                textColor = "#1e4e79";
+            }
+        }
+        
+        var googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(c.name)}`;
+
+        tableHtml += `<tr style="background-color: ${bgColor}; border-bottom: 1px solid #ddd;">
+            <td style="text-align:center; font-weight:bold; padding:10px; border:1px solid #bbb; color: ${textColor};">${index + 1}</td>
+            <td style="padding:10px; border:1px solid #bbb;">
+                <div style="font-size:1.1em; font-weight:bold; color: ${textColor};">${c.name}</div>
+                <div style="font-size:0.85em; margin-top:4px;">
+                    <span style="font-weight:bold;">📍 ${zoneLabel}</span>
+                    <a href="${googleMapsUrl}" target="_blank" class="no-print" style="margin-right:15px; color:#2563eb; text-decoration:underline;">[ 🚩 الخريطة ]</a>
+                </div>
+            </td>
+            <td style="text-align:center; font-weight:bold; padding:10px; border:1px solid #bbb; color: #1e3a8a; font-size:1.1em;">${c.minScore}</td>
+        </tr>`;
+    });
+
+    tableHtml += '</tbody></table></div>';
+    
+    tableHtml += `
+        <div class="no-print" style="text-align:center; margin-top:20px; padding-bottom:40px;">
+            <button onclick="window.print()" style="background:#059669; color:white; padding:15px 35px; border-radius:12px; border:none; cursor:pointer; font-weight:bold; font-size:1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                🖨️ طباعة أو حفظ الرغبات PDF
+            </button>
+        </div>`;
+
+    container.innerHTML = tableHtml;
+}
+
+
+@media print {
+    /* إخفاء كل شيء في الصفحة */
+    body * {
+        visibility: hidden;
+    }
+    /* إظهار الجدول ومحتوياته فقط */
+    #my-final-table, #my-final-table * {
+        visibility: visible;
+    }
+    /* وضع الجدول في بداية الصفحة وضبط العرض */
+    #my-final-table {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: none !important;
+    }
+    /* إلغاء الفواصل الغريبة بين الصفحات */
+    tr {
+        page-break-inside: avoid;
+    }
+    /* إخفاء اللينكات والخرائط عشان شكل الورقة يبقى رسمي */
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* أضف هذا السطر لضمان ظهور الألوان في الطباعة */
+* {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* تحسين الجدول للموبايلات الضعيفة */
+@media (max-width: 480px) {
+    td {
+        padding: 5px 2px !important; /* تقليل المساحات عشان الكلام ميزحمش */
+        font-size: 0.85rem !important;
+    }
+    .no-print {
+        font-size: 0.8rem;
+    }
+}
+
+/* تحديث الهيدر ليدعم صورة الخلفية الجديدة */
+header {
+    background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.9)), 
+                url('header_bg.png'); /* ربط الصورة الجديدة */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 60px 20px; /* زيادة المساحة عشان الصورة تظهر */
+    border-radius: 0 0 30px 30px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+header h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    margin-bottom: 10px;
+}
+
+/* تحسين شكل الجدول في الموبايل */
+.results-table-container {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: none; /* شكل ألطف */
+}
+
+
+.print-only { display: none; }
+
+@media print {
+    .print-only { display: block !important; }
+    header, #input-area, #start-design, .no-print, footer { display: none !important; }
+    body { background: white; }
+    .container { width: 100%; max-width: 100%; padding: 0; }
 }
