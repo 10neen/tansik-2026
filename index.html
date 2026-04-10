@@ -1,123 +1,130 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مستشارك لتنسيق الكليات لسنة 2026</title>
+    
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
     
-	<meta property="og:image" content="logo.png">
-<meta property="og:title" content="بوابة الصعيدي للتنسيق 2026">
-<meta property="og:description" content="رتب رغباتك بذكاء مع الصعيدي">
-
-<link rel="apple-touch-icon" href="logo.png">
-<link rel="icon" href="logo.png">
-	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
-        /* إضافة ستايل بسيط للتأكد من التنسيق */
-        .form-control { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ddd; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .form-control { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ddd; font-family: inherit; box-sizing: border-box; }
         .hidden { display: none; }
+        .btn-primary { cursor: pointer; transition: 0.3s; border: none; border-radius: 8px; font-weight: bold; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
         @media print { .no-print { display: none !important; } }
+        
+        #results-area table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
+        #results-area th { background: #1e3a8a; color: white; padding: 12px; text-align: right; }
+        #results-area td { border-bottom: 1px solid #eee; padding: 10px; }
+		
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
+        .btn-elmy { background: #1e3a8a; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; }
+        .btn-adaby { background: #be123c; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; }
+
+        /* ستايل صورة الواجهة */
+        .header-image {
+            width: 100%;
+            height: auto;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* ستايل كارت النصائح */
+        .guide-content b { color: #1e3a8a; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header>
-            <h1>مساعد تنسيق الثانوية العامة 2026</h1>
-            <p> خدمة لطلاب مصر الطيبين</p>
+        <header style="text-align: center; margin-bottom: 20px;">
+<img src="header_bg.png?v=2" alt="تنسيق 2026" class="header-image">            <h1 style="color: #1e3a8a; margin-top: 15px;">مساعد تنسيق الثانوية العامة 2026</h1>
+            <p style="font-weight: bold; color: #475569;">خدمة لطلاب مصر الطيبين - إهداء "معرض الصعيدي"</p>
         </header>
 
-        <div class="main-cards">
-            <div class="card" id="card-archive">
-                <h2>تنسيق عام 2025 (أرشيف)</h2>
-                <div class="btn-group">
-                    <button class="btn btn-elmy" onclick="viewArchive('elmy')">المجموعة العلمية</button>
-                    <button class="btn btn-adaby" onclick="viewArchive('adaby')">المجموعة الأدبية</button>
-                </div>
-                <div id="archive-results"></div>
+        <div style="padding: 0 20px 20px 20px;">
+            
+            <div id="start-design" style="text-align: center; margin: 30px 0;">
+                <button onclick="showInputFields()" style="background:#be123c; color:white; padding:18px 40px; border:none; border-radius:50px; font-weight:bold; cursor:pointer; font-size:1.3rem; box-shadow: 0 4px 15px rgba(190, 18, 60, 0.4);">🚀 ابدء التخيل الآن</button>
             </div>
 
-            <div class="card" id="card-generator">
-                <h2>تخيل 75 رغبة  محتمله للتنسيق </h2>
-                <button class="btn btn-primary" id="start-design" onclick="showInputFields()">ابدء التخيل الان</button>
-                
-                <div id="input-area" style="display:none; margin-top:20px;">
-				
+            <div id="input-area" style="display:none; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <label>🔢 المجموع بالدرجات (من 320):</label>
-<input type="number" 
-       id="student-score" 
-       class="form-control" 
-       placeholder="أدخل مجموعك من 320" 
-       min="0" 
-       max="320" 
-       step="0.1">
+                <input type="number" id="student-score" class="form-control" placeholder="أدخل مجموعك (مثال: 280.5)" min="0" max="320" step="0.1">
 
+                <label>📚 الشعبة الدراسية:</label>
+                <select id="student-branch" class="form-control" onchange="handleBranchChange()">
+                    <option value="">-- اختر الشعبة --</option>
+                    <option value="science">علمي علوم</option>
+                    <option value="math">علمي رياضة</option>
+                    <option value="adaby">أدبي</option>
+                </select>
 
-                    
-                    <label>📚 الشعبة الدراسية:</label>
-                    <select id="student-branch" class="form-control" onchange="handleBranchChange()">
-                        <option value="">-- اختر الشعبة --</option>
-                        <option value="science">علمي علوم</option>
-                        <option value="math">علمي رياضة</option>
-                        <option value="adaby">أدبي</option>
+                <div id="location-wrapper" class="hidden">
+                    <label>📍 منطقتك التعليمية (للتوزيع الجغرافي):</label>
+                    <select id="student-location" class="form-control">
+                        <option value="">-- اختر منطقتك --</option>
+                        <option value="cairo_giza">القاهرة والجيزة</option>
+                        <option value="qalyubia_1">القليوبية (بنها، طوخ، كفر شكر)</option>
+                        <option value="qalyubia_2">القليوبية (شبرا، العبور، قليوب، الخانكة)</option>
+                        <option value="sharqia">الشرقية</option>
+                        <option value="dakahlia">الدقهلية</option>
+                        <option value="damietta">دمياط</option>
+                        <option value="gharbia">الغربية</option>
+                        <option value="menofia">المنوفية</option>
+                        <option value="alex">الإسكندرية</option>
+                        <option value="beheira">البحيرة</option>
+                        <option value="kafr_el_sheikh">كفر الشيخ</option>
+                        <option value="ismailia">الإسماعيلية</option>
+                        <option value="port_said">بورسعيد</option>
+                        <option value="suez">السويس</option>
+                        <option value="fayoum">الفيوم</option>
+                        <option value="beni_suef">بني سويف</option>
+                        <option value="minia">المنيا</option>
+                        <option value="assiut">أسيوط</option>
+                        <option value="sohag">سوهاج</option>
+                        <option value="qena_luxor">قنا والأقصر</option>
+                        <option value="aswan">أسوان</option>
+                        <option value="sinai">شمال وجنوب سيناء</option>
+                        <option value="matrouh">مطروح</option>
                     </select>
-
-<select id="student-location" class="form-control">
-    <option value="">-- اختر منطقتك التعليمية بدقة --</option>
-    <optgroup label="القاهرة الكبرى">
-        <option value="cairo_giza">القاهرة والجيزة (كل الإدارات)</option>
-        <option value="qalyubia_1">القليوبية (بنها، طوخ، كفر شكر، قها)</option>
-        <option value="qalyubia_2">القليوبية (شبرا، العبور، قليوب، الخانكة، القناطر)</option>
-    </optgroup>
-    <optgroup label="الدلتا والقناة">
-        <option value="alex">الإسكندرية</option>
-        <option value="beheira_1">البحيرة (دمنهور وباقي المراكز)</option>
-        <option value="beheira_2">البحيرة (كفر الدوار، رشيد، إدكو - تبع إسكندرية)</option>
-        <option value="sharqia">الشرقية (الزقازيق وباقي المراكز)</option>
-        <option value="sharqia_10th">العاشر من رمضان والصالحية</option>
-        <option value="dakahlia">الدقهلية (المنصورة وباقي المراكز)</option>
-        <option value="dakahlia_mit_ghamr">ميت غمر (دقهلية)</option>
-        <option value="menofia">المنوفية (بما فيها مدينة السادات)</option>
-        <option value="gharbia">الغربية (طنطا والمحلة وزفتى)</option>
-        <option value="damietta">دمياط</option>
-        <option value="kafr_el_sheikh">كفر الشيخ</option>
-        <option value="ismailia">الإسماعيلية</option>
-        <option value="port_said">بورسعيد</option>
-        <option value="suez">السويس</option>
-    </optgroup>
-    <optgroup label="الصعيد والمحافظات الحدودية">
-        <option value="fayoum">الفيوم</option>
-        <option value="beni_suef">بني سويف</option>
-        <option value="minia">المنيا</option>
-        <option value="assiut">أسيوط</option>
-        <option value="sohag">سوهاج</option>
-        <option value="qena_luxor">قنا والأقصر</option>
-        <option value="aswan">أسوان</option>
-        <option value="red_sea">البحر الأحمر</option>
-        <option value="new_valley">الوادي الجديد</option>
-        <option value="sinai">شمال وجنوب سيناء</option>
-        <option value="matrouh">مطروح</option>
-    </optgroup>
-</select>
-
-                    <div class="radio-group" style="margin: 15px 0; background: #f1f5f9; padding: 10px; border-radius: 8px;">
-                        <p style="margin-bottom: 5px; font-weight: bold;">طريقة الترتيب:</p>
-                        <label><input type="radio" name="sort-type" value="location" checked> الأولوية للسكن (أ، ب، ج)</label>
-                        <label style="margin-right: 15px;"><input type="radio" name="sort-type" value="college"> المجموع فقط</label>
-                    </div>
-
-                    <label>🚫استبعاد كليه معينة  :</label>
-                    <input type="text" id="exclude-colleges" class="form-control" placeholder="مثلاً: تمريض، أسوان، معهد">
-                    
-                    <button class="btn btn-primary" style="background:#059669; width: 100%; margin-top: 10px;" onclick="generateWishes()">🚀 إظهار الرغبات</button>
                 </div>
-                <div id="results-area" style="margin-top: 20px;"></div>
+
+                <div class="radio-group" style="margin: 15px 0; background: #f1f5f9; padding: 15px; border-radius: 8px;">
+                    <p style="margin-bottom: 8px; font-weight: bold;">💡 طريقة الترتيب:</p>
+                    <label><input type="radio" name="sort-type" value="location" checked> الأولوية للسكن (أ، ب، ج)</label>
+                    <br>
+                    <label style="margin-top: 10px; display: inline-block;"><input type="radio" name="sort-type" value="college"> المجموع فقط (دون اعتبار للسكن)</label>
+                </div>
+
+                <label>🚫 استبعاد كليات أو محافظات (اختياري):</label>
+                <input type="text" id="exclude-colleges" class="form-control" placeholder="مثلاً: تمريض، أسوان، معهد">
+                
+                <button class="btn-primary" style="background:#059669; color:white; width: 100%; padding: 18px; margin-top: 15px; font-size: 1.1rem;" onclick="generateWishes()">🚀 إظهار الرغبات الآن</button>
             </div>
+
+            <div id="results-area" style="margin-top: 25px;"></div>
+
+            <hr style="border: 0.5px solid #eee; margin: 40px 0;">
+
+            <div class="archive-buttons-container" style="text-align:center;">
+                <h3 style="color: #475569; margin-bottom: 15px;">📊 تنسيق عام 2025 (أرشيف للذكرى)</h3>
+                <button class="btn-elmy" onclick="viewArchive('elmy')">المجموعة العلمية</button>
+                <button class="btn-adaby" onclick="viewArchive('adaby')">المجموعة الأدبية</button>
+            </div>
+            <div id="archive-results"></div>
+
+
+
 
 
 <div class="card" id="card-info" style="min-height: 900px; border: 2px solid #1e3a8a; background: #ffffff;">
@@ -197,22 +204,17 @@
             </p>
         </div>
 
-<div style="background: #fff1f2; padding: 20px; border-right: 6px solid #e11d48; border-radius: 12px; margin-bottom: 25px;">
-            <h4 style="color: #be123c; margin-bottom: 12px; font-size: 1.2em;">💡 نصيحة من القلب: الكليات "العملية" vs "النظرية" (اختار اللي بيأكل عيش)</h4>
-            <p style="color: #334155; line-height: 1.8;">
-                يا بطل، الذكاء الاصطناعي مش جاي يمشيك، هو جاي يساعد "الشاطر" اللي فاهم سوق العمل محتاج إيه:
-                <br><br>
-                🔧 <b>1. الكليات العملية (المطلوبة رقم 1):</b> 
-                (تمريض، هندسة، حاسبات، فنون تطبيقية، تكنولوجية) دي كليات "شغلها في إيدك". العالم دلوقتي بيدور على اللي "بيعرف يعمل حاجة" مش اللي "حافظ كلمتين". التمريض مثلاً مطلوب في كل شبر في العالم، والحاسبات هي لغة المستقبل.
-                <br><br>
-                📖 <b>2. الكليات النظرية (واقعها صعب):</b> 
-                (حقوق، آداب، دار علوم، تجارة عامة) الكليات دي "فوق راسي" بس لازم أصارحك.. <b>سوق العمل في مصر والعالم بقى مكتفي جداً منها.</b> عشان تنجح فيها لازم تكون "توب" في اللغة وفي التكنولوجيا، وإلا هتتخرج وتلاقي نفسك محلك سر.
-                <br><br>
-                ⚠️ <b>تحذير العبقري:</b> لو مجموعك يجيب كلية "عملية" بعيدة أو فيها شغل بإيدك، <b>اختارها فوراً</b> وابعد عن الكليات النظرية "السهلة" اللي مفيش فيها شغل غير "خدمة عملاء" أو "كول سنتر".
-                <br><br>
-                ✅ <b>الخلاصة:</b> السوق دلوقتي محتاج "فني محترف" أو "مبرمج شاطر" أو "ممرض متمكن" أكتر بكتير من محامٍ أو محاسب جديد. اتعب في كلية عملية 4 سنين، عشان ترتاح طول عمرك.
-            </p>
+
+        <div style="background: #fff1f2; padding: 20px; border-right: 6px solid #e11d48; border-radius: 12px;">
+            <h4 style="color: #be123c; margin-bottom: 12px; font-size: 1.2em;">💡 نصيحة من القلب: الكليات "العملية" vs "النظرية"</h4>
+            <p>
+                يا بطل، الذكاء الاصطناعي مش جاي يمشيك، هو جاي يساعد الشاطر.
+                <br>• <b>الكليات العملية:</b> (تمريض، هندسة، حاسبات) شغلها في "إيدك"، وعمر الآلة ما هتعرف تعمل "غيار على جرح" أو "تبني موقع فيه روح" زيك.
+                <br>• <b>الكليات النظرية:</b> (حقوق، آداب، دار علوم) دي كليات "الفكر". لو بقيت محامي شاطر وبتستخدم الـ AI عشان تطلع ثغرات القانون، هتبقى رقم 1. <br>
+                • <b>الخلاصة:</b> مفيش كلية وحشة، فيه "طالب استسلم". اتعلم (إنجليزي + مهارات كمبيوتر) في أي  كلية تدخلها، وهتلاقي الشركات هي اللي بتدور عليك.
+            </p>بس نصيحه مني الشغل بالكليات النظريه صعب في مصر والعالم حاول تدور علي حاجه عمليه ده اللي السوق حاليا محتاجه
         </div>
+
 
 <div style="background: #fdf2f8; padding: 20px; border-right: 6px solid #be185d; border-radius: 12px; margin-bottom: 25px;">
             <h4 style="color: #9d174d; margin-bottom: 12px; font-size: 1.2em;">❓ أسئلة بتلف في دماغك (وإجابتها الخلاصة)</h4>
@@ -257,49 +259,29 @@
 
 
 
+            <footer style="margin: 40px 0; text-align: center;">
+                <a href="https://tansik.digital.gov.eg" target="_blank" style="background: #1e3a8a; color: white; text-decoration: none; padding: 15px 35px; border-radius: 8px; font-weight: bold; display: inline-block;">زيارة موقع التنسيق الرسمي 🌐</a> 
+            </footer>
 
-
-<div style="text-align: center; background: #fff1f2; padding: 15px; border-radius: 8px; border: 1px dashed #e11d48; margin-top: 20px;">
-     <h4 style="color: #be123c; margin-bottom: 10px;">📍 مش عارف تروح الكلية إزاي؟</h4>
-     
-     <a href="https://www.google.com/maps/search/%D9%83%D9%84%D9%8A%D8%A7%D8%AA+%D9%88%D9%85%D8%B9%D8%A7%D9%87%D8%AF+%D8%AD%D9%83%D9%88%D9%85%D9%8A%D8%A9/@26.8206,30.8025,7z" 
-        target="_blank" 
-        class="btn-guide" 
-        style="background: #be123c; color: white; display: inline-block; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(190, 18, 60, 0.3);">
-        🚀 افتح رادار كليات مصر
-     </a>
-     
-     <p style="font-size: 12px; color: #666; margin-top: 8px;">* سيتم عرض جميع الجامعات والمعاهد المتاحة على الخريطة</p>
-</div>
-
-
-
-        <footer class="bottom-actions" style="margin-top: 30px; display: flex; justify-content: center; gap: 20px;">
-            <a href="https://tansik.digital.gov.eg" target="_blank" class="btn btn-gov">لزيارة الموقع الرسمي للتنسيق اضغط هنا</a> 
-            <button class="btn btn-pdf" onclick="window.print()">حفظ PDF</button>
-        </footer>
+        </div>
     </div>
 
-
-
-
+    <footer class="no-print" style="text-align: center; padding: 30px; border-top: 1px solid #eee; background: #f1f5f9;">
+        <h3 style="margin: 0;">💝 إهداء خاص من</h3>
+        <p style="font-size: 1.2rem; margin: 10px 0;"><b>معرض الصعيدي للأدوات الصحية</b></p>
+        <p style="color: #64748b;">بشتيل - إمبابة (بجوار شارع الرحمن)</p>
+    </footer>
 
     <script src="elmy_data.js"></script>
     <script src="adaby_data.js"></script>
     <script src="script.js"></script>
 
-    <footer class="royal-footer no-print">
-        <div class="container" style="text-align: center; padding: 20px;">
-            <h3>💝 إهداء خاص</h3>
-            <p>مع تحيات: <span class="highlight">معرض الصعيدي للأدوات الصحية</span> (بشتيل - إمبابة)</p>
-        </div>
-    </footer>
-    
     <script>
-        // وظائف الواجهة المباشرة
         function showInputFields() {
             document.getElementById('input-area').style.display = 'block';
             document.getElementById('start-design').style.display = 'none';
+            // سكرول لمكان المدخلات
+            document.getElementById('input-area').scrollIntoView({ behavior: 'smooth' });
         }
 
         function handleBranchChange() {
@@ -312,5 +294,16 @@
             }
         }
     </script>
+	
+	<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('جاهز للعمل بدون إنترنت!'))
+      .catch(err => console.log('فشل تسجيل الـ SW', err));
+  }
+</script>
+	
+	
+	
 </body>
 </html>
