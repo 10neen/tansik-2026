@@ -1,29 +1,22 @@
-const CACHE_NAME = 'tansik-saidi-v1';
-const assets = [
-  './',
-  './index.html',
-  './style.css',
-  './script.js',
-  './header_bg.png',
-  './elmy_data.js',
-  './adaby_data.js',
-  './manifest.json'
-];
-
-// تثبيت الخدمة وتخزين الملفات
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(assets);
-    })
-  );
-});
-
-// جلب الملفات من الكاش لسرعة الأداء
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(response => {
-      return response || fetch(e.request);
-    })
-  );
-});
+{
+  "name": "بوابة الصعيدي لتنسيق الثانوية العامة 2026",
+  "short_name": "تنسيق الصعيدي",
+  "description": "مساعد تنسيق الثانوية العامة 2026 من بوابة الصعيدي - خدمة مجانية لأبطالنا",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1e3a8a",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "header_bg.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "header_bg.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
