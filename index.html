@@ -1,60 +1,72 @@
 
-<!DOCTYPE html>
+			<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مستشارك لتنسيق الكليات لسنة 2026</title>
+    <title>بوابة الصعيدي | مساعد تنسيق الثانوية العامة 2026</title>
     
+	
+    <meta name="description" content="رتب رغباتك الـ 75 بتنسيق السنه اللي فاتت واعرف كلياتك المناسبة حسب مجموعك ومنطقتك الجغرافية. خدمة مجانية من بوابة الصعيدي لأبطال الثانوية العامة 2026.">
+    <meta property="og:title" content="بوابة الصعيدي | مساعد تنسيق الثانوية العامة 2026">
+    <meta property="og:description" content="متحتارش في ترتيب الرغبات.. أدق أداة لتنسيق الثانوية العامة 2026 بين إيديك دلوقتي!">
+    <meta property="og:image" content="header_bg.jpg"> 
+    <meta property="og:url" content="https://10neen.github.io/tansik-2026/">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="header_bg.jpg">
+
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
+    
+    <link rel="icon" type="image/jpeg" href="header_bg.jpg">
+    <link rel="apple-touch-icon" href="header_bg.jpg">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
-        .container { max-width: 900px; margin: 0 auto; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        .form-control { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ddd; font-family: inherit; box-sizing: border-box; }
-        .hidden { display: none; }
-        .btn-primary { cursor: pointer; transition: 0.3s; border: none; border-radius: 8px; font-weight: bold; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        @media print { .no-print { display: none !important; } }
-        
-        #results-area table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
-        #results-area th { background: #1e3a8a; color: white; padding: 12px; text-align: right; }
-        #results-area td { border-bottom: 1px solid #eee; padding: 10px; }
-		
-        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
-        .btn-elmy { background: #1e3a8a; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; }
-        .btn-adaby { background: #be123c; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; }
-
-        /* ستايل صورة الواجهة */
-        .header-image {
-            width: 100%;
-            height: auto;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        
-        /* ستايل كارت النصائح */
-        .guide-content b { color: #1e3a8a; }
-    </style>
 </head>
 <body>
 
     <div class="container">
         <header style="text-align: center; margin-bottom: 20px;">
-<img src="header_bg.png?v=2" alt="تنسيق 2026" class="header-image">            <h1 style="color: #1e3a8a; margin-top: 15px;">مساعد تنسيق الثانوية العامة 2026</h1>
-            <p style="font-weight: bold; color: #475569;">خدمة لطلاب مصر الطيبين - إهداء "معرض الصعيدي"</p>
+            <img src="header_bg.jpg?v=2" alt="تنسيق 2026 - بوابة الصعيدي" class="header-image" style="max-width: 100%; border-radius: 12px;">
+            
+            <h1 style="color: #1e3a8a; margin-top: 15px;">بوابة الصعيدي | مساعد تنسيق الثانوية العامة 2026</h1>
+            <p style="font-weight: bold; color: #475569;">خدمة مجانية لأبطالنا في الثانوية العامة 2026 (بشتيل - إمبابة)</p>
+			
+			
+            <div style="position: fixed; top: 10px; left: 10px; z-index: 2000; display: flex; gap: 10px; align-items: flex-start;">
+                
+                <button onclick="toggleDarkMode()" style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+                    🌙
+                </button>
+                
+                <div style="position: relative;">
+                    <button onclick="toggleShareMenu()" style="background: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 5px;">
+                        📢 مشاركة الموقع
+                    </button>
+
+                    <div id="share-menu" style="display: none; position: absolute; top: 45px; left: 0; background: var(--card-bg); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); padding: 8px; min-width: 160px; border: 1px solid var(--border-color); animation: fadeIn 0.3s ease;">
+                        
+                        <div onclick="shareToPlatform('facebook')" style="padding: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #1877f2; font-weight: bold; border-bottom: 1px solid var(--border-color); border-radius: 8px 8px 0 0; transition: background 0.2s;">
+                            <span style="font-size: 18px;">🔵</span> فيسبوك
+                        </div>
+                        
+                        <div onclick="shareToPlatform('whatsapp')" style="padding: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #25d366; font-weight: bold; border-radius: 0 0 8px 8px; transition: background 0.2s;">
+                            <span style="font-size: 18px;">🟢</span> واتساب
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
+
+
 
         <div style="padding: 0 20px 20px 20px;">
             
             <div id="start-design" style="text-align: center; margin: 30px 0;">
-                <button onclick="showInputFields()" style="background:#be123c; color:white; padding:18px 40px; border:none; border-radius:50px; font-weight:bold; cursor:pointer; font-size:1.3rem; box-shadow: 0 4px 15px rgba(190, 18, 60, 0.4);">🚀 ابدء التخيل الآن</button>
+                <button onclick="showInputFields()">🚀 ابدأ التخيل الآن</button>
             </div>
 
             <div id="input-area" style="display:none; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
@@ -74,16 +86,16 @@
                     <select id="student-location" class="form-control">
                         <option value="">-- اختر منطقتك --</option>
                         <option value="cairo_giza">القاهرة والجيزة</option>
-                        <option value="qalyubia_1">القليوبية (بنها، طوخ، كفر شكر)</option>
-                        <option value="qalyubia_2">القليوبية (شبرا، العبور، قليوب، الخانكة)</option>
+                        <option value="qalyubia_1">القليوبية (بنها، طوخ، إلخ)</option>
+                        <option value="qalyubia_2">القليوبية (شبرا، العبور، إلخ)</option>
                         <option value="sharqia">الشرقية</option>
                         <option value="dakahlia">الدقهلية</option>
                         <option value="damietta">دمياط</option>
                         <option value="gharbia">الغربية</option>
                         <option value="menofia">المنوفية</option>
+                        <option value="kafr_el_sheikh">كفر الشيخ</option>
                         <option value="alex">الإسكندرية</option>
                         <option value="beheira">البحيرة</option>
-                        <option value="kafr_el_sheikh">كفر الشيخ</option>
                         <option value="ismailia">الإسماعيلية</option>
                         <option value="port_said">بورسعيد</option>
                         <option value="suez">السويس</option>
@@ -92,18 +104,16 @@
                         <option value="minia">المنيا</option>
                         <option value="assiut">أسيوط</option>
                         <option value="sohag">سوهاج</option>
-                        <option value="qena_luxor">قنا والأقصر</option>
+                        <option value="qena">قنا</option>
+                        <option value="luxor">الأقصر</option>
                         <option value="aswan">أسوان</option>
-                        <option value="sinai">شمال وجنوب سيناء</option>
-                        <option value="matrouh">مطروح</option>
                     </select>
                 </div>
 
-                <div class="radio-group" style="margin: 15px 0; background: #f1f5f9; padding: 15px; border-radius: 8px;">
-                    <p style="margin-bottom: 8px; font-weight: bold;">💡 طريقة الترتيب:</p>
-                    <label><input type="radio" name="sort-type" value="location" checked> الأولوية للسكن (أ، ب، ج)</label>
-                    <br>
-                    <label style="margin-top: 10px; display: inline-block;"><input type="radio" name="sort-type" value="college"> المجموع فقط (دون اعتبار للسكن)</label>
+                <div class="sort-options" style="margin: 15px 0;">
+                    <label>📊 ترتيب النتائج حسب:</label>
+                    <input type="radio" name="sort-type" value="score" checked> المجموع
+                    <input type="radio" name="sort-type" value="location"> السكن
                 </div>
 
                 <label>🚫 استبعاد كليات أو محافظات (اختياري):</label>
@@ -116,7 +126,14 @@
 
             <hr style="border: 0.5px solid #eee; margin: 40px 0;">
 
-            <div class="archive-buttons-container" style="text-align:center;">
+            <div class="usage-tips no-print">
+                <h3>💡 نصائح الاستخدام (النطاق الجغرافي):</h3>
+                <div class="tip-row"><span style="color: #16a34a;">●</span> الأخضر: نطاق (أ) الأقرب لسكنك</div>
+                <div class="tip-row"><span style="color: #2563eb;">●</span> الأزرق: نطاق (ب) المحافظات المجاورة</div>
+                <div class="tip-row"><span style="color: #dc2626;">●</span> الأحمر: نطاق (ج) الكليات البعيدة</div>
+            </div>
+
+            <div class="archive-buttons-container" style="text-align:center; margin-top: 30px;">
                 <h3 style="color: #475569; margin-bottom: 15px;">📊 تنسيق عام 2025 (أرشيف للذكرى)</h3>
                 <button class="btn-elmy" onclick="viewArchive('elmy')">المجموعة العلمية</button>
                 <button class="btn-adaby" onclick="viewArchive('adaby')">المجموعة الأدبية</button>
@@ -124,152 +141,229 @@
             <div id="archive-results"></div>
 
 
+<div id="saidi-guide" style="max-width: 900px; margin: 20px auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: rtl;">
 
-
-
-<div class="card" id="card-info" style="min-height: 900px; border: 2px solid #1e3a8a; background: #ffffff;">
-    <h2 style="color: #1e3a8a; border-bottom: 3px solid #fbbf24; padding-bottom: 10px; text-align: center; font-weight: 900;">🌟 دليل "العبقري" لدخول الجامعة: كل اللي محتاج تعرفه من الألف للياء</h2>
-    
-    <div class="guide-content" style="text-align: justify; line-height: 1.8; font-size: 1.05em; color: #334155; max-height: 800px; overflow-y: auto; padding: 15px;">
-
-<div style="background: #fff1f2; padding: 20px; border: 2px solid #be123c; border-radius: 12px; margin-bottom: 25px;">
-            <h4 style="color: #be123c; margin-bottom: 12px; font-size: 1.2em; text-align: center;">🚫 احذر: مفيش "كوسة" في التنسيق الإلكتروني!</h4>
-            <p style="font-weight: bold; color: #991b1b;">
-                اسمع من أخوك عشان مترميش فلوسك في الأرض:
-                <br>• <b>إشاعة "تعديل المجموع":</b> أي حد يقولك "هزودلك مجموعك في الكنترول" أو "هعدلك النتيجة على السيستم" هو <u>نصاب بنسبة 100%</u>. النتيجة بتترفع على سيرفرات الوزارة وبتتراجع كذا مرة، ومحدش يقدر يلمسها.
-                <br>• <b>إشاعة "هسكنك في كلية قمة":</b> مكتب التنسيق عبارة عن "خوارزمية" كمبيوتر (Algorithm). السيستم بياخد المجموع الأعلى فالأقل، ومفيش بني آدم بيتدخل في توزيع الرغبات يدوي عشان "يجاملك".
-                <br>• <b>مكاتب التنسيق الوهمية:</b> متسلمش رقمك السري (اللي على شهادة النجاح) لأي حد بره البيت أو لمكتب "سايبر" مش موثوق. ممكن يغيروا رغباتك في آخر لحظة ويضيعوا مستقبلك.
-                <br>• <b>الخلاصة:</b> التنسيق الإلكتروني في مصر من أدق السيستمات، ومفيش فيه مجال للتلاعب أو "الواسطة". لو حد عرض عليك خدمة من دي، بلغ عنه فوراً لأنه بيبيع لك الوهم.
-            </p>
-        </div>
-
-<div style="background: #f0f9ff; padding: 20px; border-right: 6px solid #0ea5e9; border-radius: 12px; margin-bottom: 25px;">
-    <h4 style="color: #0369a1; margin-bottom: 12px; font-size: 1.25em;">🕒 نظام الساعات المعتمدة: يعني إيه؟ وأختار "عادي" ولا "كريدت"؟</h4>
-    <p>
-        بص يا بطل، انسى نظام المدرسة القديم (إني لازم أنجح في كل المواد عشان أعدي السنة)، الجامعة دلوقتي شغالة بنظام <b>"الساعات المعتمدة"</b> وده نظام مرن جداً لمصلحتك:
-        <br><br>
-        ✅ <b>إزاي النظام ده بيحميك؟</b>
-        <br>• المادة ليها "وزن" (مثلاً 3 ساعات)، وهدفك تجمع عدد ساعات معين عشان تتخرج.
-        <br>• <b>أجمل حاجة:</b> لو مادة تعثرت فيها، مش بتعيد السنة! أنت بس بتعيد "المادة دي" في الصيف (Summer Course) أو الترم اللي بعده، وباقي موادك ماشية عادي جداً.
-        <br>• <b>المعدل (GPA):</b> ده ترمومتر شطارتك من 4. طول ما أنت فوق الـ 2 أنت برنس وفي الأمان، ولو نزل الجامعة بتنبهك "بالراحة" عشان تشد حيلك وترفعه.
-        <br><br>
-        ⚖️ <b>طيب إيه الفرق بين "الجنرال" و "الكريدت"؟ (الحسبة الصح):</b>
-        <br><br>
-        🟢 <b>1. النظام العام (الجنرال):</b>
-        <br>• ده التعليم الحكومي المدعم، وهو برضه "ساعات معتمدة" زي الكريدت بالظبط.
-        <br>• <b>المصاريف:</b> "على قد الإيد"، بتبدأ من <b>1200 ج</b> وتوصل لـ <b>2800 ج</b> في السنة كلها. يعني حرفياً أقل من شهر دروس خصوصية!
-        <br>• <b>الواقع:</b> أعداد الطلاب بتبقى كبيرة في المدرج، والخدمات أساسية، بس العلم واحد والشهادة قوية.
-        <br><br>
-        🔵 <b>2. نظام الكريدت (البرامج الخاصة - الـ 5 نجوم):</b>
-        <br>• ده "براند" جوه جامعتك الحكومية، متاح في كليات معينة (مش كلها) وبمصاريف أعلى بكتير.
-        <br>• <b>المصاريف:</b> بتبدأ من <b>15 ألف ج</b> وممكن توصل في كليات القمة (هندسة وحاسبات) لـ <b>50 و 70 ألف ج</b> سنوياً حسب الساعات اللي بتسجلها.
-        <br>• <b>المميزات:</b> قاعات مكيفة، أعداد قليلة (عشرينات وثلاثينات)، دكاترة مركزين معاك، ومنهج متطور جداً ولغات.
-        <br>• <b>الحل الذكي:</b> لو مجموعك جايب "هندسة أسوان" وأنت من القاهرة، ممكن تدخل "هندسة القاهرة كريدت" (لو متاح) وتوفر فلوس السكن والغربة وتدفعها في تعليم "بريميوم" جنب بيتك، وشهادتك في الآخر حكومية 100% وأرخص بكتير من الجامعات الخاصة.
-    </p>
-</div>
-
-
-        <div style="background: #fff7ed; padding: 20px; border-right: 6px solid #ea580c; border-radius: 12px; margin-bottom: 25px;">
-            <h4 style="color: #9a3412; margin-bottom: 12px; font-size: 1.2em;">⚠️ اختبارات القدرات و "فخ" رياضة 2</h4>
-            <p>
-                <b>• لعلمي علوم (حلم التكنولوجيا):</b> لو مجموعك مجابش طب وعايز تدخل "حاسبات ومعلومات"، لازم تعرف إنك هتدرس مادة اسمها <b>(Math 2)</b> أو "رياضة 2" في أول سنة. دي مادة استلحاقية عشان تعوض فرق الرياضة بينك وبين طالب علمي رياضة. متخافش، بتبقى بسيطة ومحتاجة تركيز بس!
-                <br><b>• كليات لازم ليها امتحان قدرات:</b> (فنون جميلة، فنون تطبيقية، تربية رياضية، تربية موسيقية، تمريض -في بعض الأحيان-).
-                <br><b>• تقدم إمتى؟</b> التقديم بيبدأ <u>فوراً</u> بعد امتحانات الثانوية وقبل النتيجة ما تظهر بـ "موقع التنسيق". لو النتيجة ظهرت ومرحتش امتحان القدرات، مش هتعرف تدخل الكليات دي حتى لو جايب 100%!
-                <br><b>• نوع الاختبار:</b> غالباً بيكون (رسم، تصميم، معلومات عامة، أو كشف طبي ولياقة) حسب كليتك.
-            </p>
-        </div>
-
-<div style="background: #f8fafc; padding: 20px; border-right: 6px solid #1e40af; border-radius: 12px; margin-bottom: 25px;">
-            <h4 style="color: #1e40af; margin-bottom: 12px; font-size: 1.2em;">📄 ورقك في جيبك (يوم التقديم للكلية)</h4>
-            <p>بعد ما يجيلك "جواب الترشيح" النهائي، جهز الشنطة دي وخد بالك إن زيادة التأكيد أحسن:
-                <br>1. <b>أصل شهادة الثانوية العامة:</b> (وخد معاك 5 لـ 10 صور منها احتياطي).
-                <br>2. <b>أصل شهادة الميلاد:</b> (كمبيوتر حديثة بـ "رقم ثلاثي" للولاد).
-                <br>3. <b>صور شخصية:</b> (جهز من 8 لـ 12 صورة 4*6 خلفية بيضاء، ساعات بيطلبوا ملفين منفصلين).
-                <br>4. <b>صورة بطاقتك الشخصية:</b> وصورة بطاقة ولي الأمر (صور كل واحدة 3 مرات).
-                <br>5. <b>الموقف التجنيدي (للشباب):</b> نموذج <b>2 جند</b> ونموذج <b>6 جند</b> (أو 7 جند حسب ما يطلب مكتب شؤون الطلاب بالكلية) وده بيتجاب من مديرية الأمن أو قسم الشرطة التابع له.
-                <br>6. <b>بطاقة الترشيح:</b> اطبعها من موقع التنسيق (يفضل تطبع كذا نسخة لأنها بتتسحب منك عند البوابة).
-                <br><br>
-                <span style="color: #be123c; font-weight: bold;">💡 نصيحة "العبقري":</span> 
-                صور كل الأوراق دي "سكانر" بالموبايل وارفعها على Google Drive أو ابعتها لنفسك على الواتساب، لأنك هتحتاج بياناتها كتير وأنت بتقدم في المنح أو المدينة الجامعية والورق الأصلي هيكون محبوس في ملفك بالكلية!
-            </p>
-        </div>
-
-        <div style="background: #f0fdf4; padding: 20px; border-right: 6px solid #166534; border-radius: 12px; margin-bottom: 25px;">
-            <h4 style="color: #166534; margin-bottom: 12px; font-size: 1.2em;">🏠 المدينة الجامعية: السكن، الأكل، والنظام</h4>
-            <p>
-                • <b>الأكل:</b> الجامعة بتقدم وجبات ساخنة (لحوم، فراخ، رز، خضار) وفطار وعشا (جبن، فول، عسل). الأكل نضيف ومراقب صحياً جداً.
-                <br>• <b>المواعيد:</b> بوابات المدينة بتقفل الساعة 10 بالليل (وللبنات ممكن 8 أو 9). لو اتأخرت لازم إذن مسبق.
-                <br>• <b>الزيارات:</b> أهلك يقدروا يزوروك في "قاعة الزوار" بس، وممنوع دخول الغرف لغير الطلاب.
-                <br>• <b>الإجازات:</b> المدينة بتقفل في الإجازات الرسمية الطويلة (زي نص السنة)، وبترجع لبيتك وتيجي مع بداية الدراسة.
-            </p>
-        </div>
-
-
-        <div style="background: #fff1f2; padding: 20px; border-right: 6px solid #e11d48; border-radius: 12px;">
-            <h4 style="color: #be123c; margin-bottom: 12px; font-size: 1.2em;">💡 نصيحة من القلب: الكليات "العملية" vs "النظرية"</h4>
-            <p>
-                يا بطل، الذكاء الاصطناعي مش جاي يمشيك، هو جاي يساعد الشاطر.
-                <br>• <b>الكليات العملية:</b> (تمريض، هندسة، حاسبات) شغلها في "إيدك"، وعمر الآلة ما هتعرف تعمل "غيار على جرح" أو "تبني موقع فيه روح" زيك.
-                <br>• <b>الكليات النظرية:</b> (حقوق، آداب، دار علوم) دي كليات "الفكر". لو بقيت محامي شاطر وبتستخدم الـ AI عشان تطلع ثغرات القانون، هتبقى رقم 1. <br>
-                • <b>الخلاصة:</b> مفيش كلية وحشة، فيه "طالب استسلم". اتعلم (إنجليزي + مهارات كمبيوتر) في أي  كلية تدخلها، وهتلاقي الشركات هي اللي بتدور عليك.
-            </p>بس نصيحه مني الشغل بالكليات النظريه صعب في مصر والعالم حاول تدور علي حاجه عمليه ده اللي السوق حاليا محتاجه
-        </div>
-
-
-<div style="background: #fdf2f8; padding: 20px; border-right: 6px solid #be185d; border-radius: 12px; margin-bottom: 25px;">
-            <h4 style="color: #9d174d; margin-bottom: 12px; font-size: 1.2em;">❓ أسئلة بتلف في دماغك (وإجابتها الخلاصة)</h4>
+    <details style="background: #f0f9ff; border-right: 6px solid #0ea5e9; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #0369a1; font-weight: bold; font-size: 1.25em; cursor: pointer; padding: 20px; outline: none;">
+            🕒 نظام الساعات المعتمدة: يعني إيه؟ وأختار "عادي" ولا "كريدت"؟
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #334155;">
+            <p>بص يا بطل، انسى نظام المدرسة القديم (إني لازم أنجح في كل المواد عشان أعدي السنة)، الجامعة دلوقتي شغالة بنظام <b>"الساعات المعتمدة"</b> وده نظام مرن جداً لمصلحتك:</p>
+            <p>✅ <b>إزاي النظام ده بيحميك؟</b><br>
+            • المادة ليها "وزن" (مثلاً 3 ساعات)، وهدفك تجمع عدد ساعات معين عشان تتخرج.<br>
+            • <b>أجمل حاجة:</b> لو مادة تعثرت فيها، مش بتعيد السنة! أنت بس بتعيد "المادة دي" في الصيف (Summer Course) أو الترم اللي بعده، وباقي موادك ماشية عادي جداً.<br>
+            • <b>المعدل (GPA):</b> ده ترمومتر شطارتك من 4. طول ما أنت فوق الـ 2 أنت برنس وفي الأمان، ولو نزل الجامعة بتنبهك "بالراحة" عشان تشد حيلك وترفعه.</p>
             
-            <div style="margin-bottom: 15px;">
-                <p><b>• هل كليات القمة (طب وهندسة) في المحافظات البعيدة شهادتها أقل؟</b>
-                <br>إطلاقاً! شهادة هندسة أسوان زي شهادة هندسة القاهرة، الختم واحد "جمهورية مصر العربية"، ونقابة المهندسين أو الأطباء مش بتفرق بينك وبين أي حد. الفرق الوحيد هو "المكان" بس.</p>
-            </div>
-
-            <div style="margin-bottom: 15px;">
-                <p><b>• يعني إيه "تحويل ورقي" و "تحويل إلكتروني"؟</b>
-                <br>مفيش حاجة اسمها تحويل ورقي دلوقتي! كل التعامل مع مكتب التنسيق "إلكتروني" فقط من خلال الموقع الرسمي. متسمعش كلام أي حد يقولك "هخلص لك ورقة في الكلية"، التنسيق سيستم مقفول ومحكم.</p>
-            </div>
-
-            <div style="margin-bottom: 15px;">
-                <p><b>• لو جالي معهد عالي 4 سنين، هل ده زي الكلية؟</b>
-                <br>أيوة، المعاهد العليا التابعة لوزارة التعليم العالي بتدي درجة "البكالوريوس" أو "الليسانس" ومعتمدة من المجلس الأعلى للجامعات، وليك حق القيد في النقابة (مهندسين، تجاريين.. إلخ) زي خريج الجامعة بالظبط.</p>
-            </div>
-
-            <div style="margin-bottom: 15px;">
-                <p><b>• هي "تجارة إنجليزي" أو "حقوق فرنساوي" بتظهر في التنسيق؟</b>
-                <br>لا يا بطل، أنت بتنسق الكلية (عام) الأول، وبعد ما تتقبل وتطبع بطاقة الترشيح، بتروح الكلية تقدم في "تنسيق داخلي" خاص باللغات، وبياخدوا أعلى ناس في درجة اللغة في الثانوية العامة.</p>
-            </div>
-
-            <div style="margin-bottom: 15px;">
-                <p><b>• ينفع أشتغل وأنا بدرس في الكلية؟</b>
-                <br>طبعاً، بس نصيحة أخ: لو كليتك "عملية" (زي هندسة أو طب) خلي الشغل في الإجازة الصيفية بس عشان متسقطش ساعات معتمدة. لو كليتك "نظرية" (زي تجارة أو حقوق) تقدر توازن وتشتغل وتدرس في نفس الوقت.</p>
-            </div>
+            <hr style="border: 0; border-top: 1px solid #bae6fd; margin: 15px 0;">
+            
+            <p>⚖️ <b>طيب إيه الفرق بين "الجنرال" و "الكريدت"؟ (الحسبة الصح):</b></p>
+            <p>🟢 <b>1. النظام العام (الجنرال):</b><br>
+            • ده التعليم الحكومي المدعم، وهو برضه "ساعات معتمدة" زي الكريدت بالظبط.<br>
+            • <b>المصاريف:</b> "على قد الإيد"، بتبدأ من 1200 ج وتوصل لـ 3500 ج في السنة كلها (حسب كليتك). يعني حرفياً أقل من شهر دروس خصوصية!<br>
+            • <b>الواقع:</b> أعداد الطلاب بتبقى كبيرة في المدرج، والخدمات أساسية، بس العلم واحد والشهادة قوية.</p>
+            
+            <p>🔵 <b>2. نظام الكريدت (البرامج الخاصة - الـ 5 نجوم):</b><br>
+            • ده "براند" جوه جامعتك الحكومية، متاح في كليات معينة (مش كلها) وبمصاريف أعلى بكتير.<br>
+            • <b>المصاريف:</b> بتبدأ من 15 ألف ج وممكن توصل في كليات القمة (هندسة وحاسبات) لـ 50 و 70 ألف ج سنوياً حسب الساعات اللي بتسجلها.<br>
+            • <b>المميزات:</b> قاعات مكيفة، أعداد قليلة (عشرينات وثلاثينات)، دكاترة مركزين معاك، ومنهج متطور جداً ولغات.<br>
+            • <b>الحل الذكي:</b> لو مجموعك جايب "هندسة أسوان" وأنت من القاهرة، ممكن تدخل "هندسة القاهرة كريدت" وتوفر فلوس السكن والغربة وتدفعها في تعليم "بريميوم" جنب بيتك، وشهادتك في الآخر حكومية 100% وأرخص بكتير من الجامعات الخاصة.</p>
         </div>
+    </details>
 
-        <div style="background: #eff6ff; padding: 20px; border: 1px dashed #1e40af; border-radius: 12px; text-align: center;">
-            <h4 style="color: #1e40af; margin-bottom: 10px;">❤️ كلمة أخيرة من قلب أخوك الكبير</h4>
-            <p>
-                لو مجموعك مجابش الكلية اللي كنت بتحلم بيها، ده مش نهاية العالم. والله يابني، ياما ناس دخلت كليات "قمة" وفشلت، وناس دخلت كليات بسيطة وبقوا "مليونيرات" وأصحاب شركات. 
-                <br><b>النجاح الحقيقي:</b> إنك تكون شاطر في المكان اللي ربنا اختارهولك. اتعب، اتعلم لغة، وطور مهاراتك.. وهتفتكر الكلام ده بعد 4 سنين وتعرف إن ربنا كان شايلك الأفضل.
+    <details style="background: #fff7ed; border-right: 6px solid #ea580c; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #9a3412; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            ⚠️ اختبارات القدرات و "فخ" رياضة 2
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #431407;">
+            <p><b>• لعلمي علوم (حلم التكنولوجيا):</b> لو مجموعك مجابش طب وعايز تدخل "حاسبات ومعلومات"، لازم تعرف إنك هتدرس مادة اسمها <b>(Math 2)</b> أو "رياضة 2" في أول سنة. دي مادة استلحاقية عشان تعوض فرق الرياضة بينك وبين طالب علمي رياضة. متخافش، بتبقى بسيطة ومحتاجة تركيز بس!<br>
+            <b>• كليات لازم ليها امتحان قدرات:</b> (فنون جميلة، فنون تطبيقية، تربية رياضية، تربية موسيقية، تمريض -في بعض الأحيان-).<br>
+            <b>• تقدم إمتى؟</b> التقديم بيبدأ <u>فوراً</u> بعد امتحانات الثانوية وقبل النتيجة ما تظهر بـ "موقع التنسيق". لو النتيجة ظهرت ومرحتش امتحان القدرات، مش هتعرف تدخل الكليات دي حتى لو جايب 100%!<br>
+            <b>• نوع الاختبار:</b> غالباً بيكون (رسم، تصميم، معلومات عامة، أو كشف طبي ولياقة) حسب كليتك.</p>
+        </div>
+    </details>
+
+    <details style="background: #f8fafc; border-right: 6px solid #1e40af; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #1e40af; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            📄 ورقك في جيبك (يوم التقديم للكلية)
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #1e293b;">
+            <p>بعد ما يجيلك "جواب الترشيح" النهائي، جهز الشنطة دي وخد بالك إن زيادة التأكيد أحسن:<br>
+            1. <b>أصل شهادة الثانوية العامة:</b> (وخد معاك 5 لـ 10 صور منها احتياطي).<br>
+            2. <b>أصل شهادة الميلاد:</b> (كمبيوتر حديثة بـ "رقم ثلاثي" للولاد).<br>
+            3. <b>صور شخصية:</b> (جهز من 8 لـ 12 صورة 4*6 خلفية بيضاء، ساعات بيطلبوا ملفين منفصلين).<br>
+            4. <b>صورة بطاقتك الشخصية:</b> وصورة بطاقة ولي الأمر (صور كل واحدة 3 مرات).<br>
+            5. <b>الموقف التجنيدي (للشباب):</b> نموذج <b>2 جند</b> ونموذج <b>6 جند</b> (بيتجاب من مديرية الأمن أو القسم).<br>
+            6. <b>بطاقة الترشيح:</b> اطبعها من موقع التنسيق (يفضل تطبع كذا نسخة).<br><br>
+            <span style="color: #be123c; font-weight: bold;">💡 نصيحة "العبقري":</span> صور كل الأوراق دي "سكانر" بالموبايل وارفعها على Google Drive أو ابعتها لنفسك على الواتساب، لأنك هتحتاج بياناتها كتير والورق الأصلي هيكون محبوس في ملفك بالكلية!</p>
+        </div>
+    </details>
+
+    <details style="background: #f0fdf4; border-right: 6px solid #166534; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #166534; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            🏠 المدينة الجامعية: السكن، الأكل، والنظام
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #064e3b;">
+            <p>• <b>الأكل:</b> الجامعة بتقدم وجبات ساخنة (لحوم، فراخ، رز، خضار) وفطار وعشا. الأكل نضيف ومراقب صحياً جداً.<br>
+            • <b>المواعيد:</b> بوابات المدينة بتقفل الساعة 10 بالليل (وللبنات ممكن 8 أو 9). لو اتأخرت لازم إذن مسبق.<br>
+            • <b>الزيارات:</b> أهلك يقدروا يزوروك في "قاعة الزوار" بس.<br>
+            • <b>الإجازات:</b> المدينة بتقفل في الإجازات الرسمية الطويلة، وبترجع لبيتك وتيجي مع بداية الدراسة.</p>
+        </div>
+    </details>
+
+
+<details style="background: #f1f5f9; border-right: 6px solid #475569; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #1e293b; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            🎖️ يعني إيه "نقابة"؟ وإمتى أغير المسمى في البطاقة؟ (الخلاصة)
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #1e293b;">
+            <p><b>• يعني إيه نقابة أصلاً؟</b><br>
+            النقابة دي هي "بيت المهنة"، وظيفتها تحميك، توفرلك معاش، وتديك "كارنيه" يسمحلك تزاول المهنة قانونياً. من غير نقابة، أنت بتمارس هواية مش مهنة رسمية.</p>
+
+            <p><b>• خناقة "حاسبات" و "هندسة":</b><br>
+            • طالب <b>حاسبات ومعلومات</b> بيتبع "نقابة تكنولوجيا المعلومات" (نقابة التجاريين مؤقتاً لبعض الأقسام)، ومش بيتبع نقابة المهندسين.<br>
+            • <b>ليه؟</b> لأن هندسة ليها نقابة مستقلة بقانون قديم، وحاسبات علم مستقل بذاته. <br>
+            • <b>نصيحة:</b> في سوق العمل البرمجي (Google, Microsoft)، الكارنيه ملوش لازمة، "شطارتك وكودك" هما اللي بيحددوا مرتبك اللي ممكن يعدي مرتب المهندس بمراحل.</p>
+
+            <p><b>• خناقة "علاج طبيعي" و "الأطباء":</b><br>
+            • خريج <b>علاج طبيعي</b> ليه نقابة مستقلة قوية جداً اسمها "نقابة العلاج الطبيعي"، ومش بيتبع نقابة الأطباء (البشري).<br>
+            • <b>المسمى:</b> بيبقى لقبك "دكتور إخصائي علاج طبيعي"، وليك حق فتح عيادة خاصة (بشروط)، ومكانتك في المجتمع محفوظة ومطلوبة جداً بره وجوه مصر.</p>
+
+            <p><b>• إمتى أكتب "مهندس" أو "دكتور" في البطاقة؟</b><br>
+            • <b>القاعدة:</b> ما ينفعش تغير مسمى البطاقة وأنت طالب.<br>
+            • <b>بعد التخرج:</b> بتاخد شهادة التخرج المؤقتة، وتروح "النقابة" التابع ليها، تطلع "كارنيه النقابة".<br>
+            • <b>الخطوة الأخيرة:</b> بالشهادة وكارنيه النقابة، بتروح السجل المدني وتغير خانة "المهنة". من غير كارنيه النقابة، السجل مش هيعترف بلقبك العلمي.</p>
+
+            <p style="background: #fff; padding: 10px; border-radius: 8px; border: 1px dashed #475569;">
+                <span style="color: #e11d48; font-weight: bold;">⚠️ نصيحة أخيرة:</span> متخليش "اسم النقابة" يخليك تدخل كلية مش بتحبها. العالم بيتغير، ودلوقتي "المهارات" أهم بكتير من "الكرتنة" اللي في المحفظة!
+            </p>
+        </div>
+    </details>
+
+<details style="background: #f0fdf4; border-right: 6px solid #22c55e; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #166534; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            🎯 التوزيع الجغرافي: إزاي ترتب رغباتك "بصياعة" وم تترفضش؟
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #064e3b;">
+            <p>التنسيق متقسم 3 نطاقات (أ، ب، ج) حسب عنوانك في شهادة الميلاد، وده أهم جزء في كتابة الرغبات:</p>
+            <p>✅ <b>النطاق (أ):</b> دي الجامعات اللي "لازم" تبدأ بيها، وهي الأقرب لسكنك. لو فوّت واحدة منها وكتبت جامعة في نطاق (ب)، السيستم هيعملك "Error" فوراً.</p>
+            
+            <p style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #22c55e;">
+                💡 <b>نصيحة صايعة:</b> لو مجموعك عالي وعايز كلية معينة بس بعيدة عنك (زي هندسة بترول مثلاً وهي مش في نطاقك)، اكتبها في رغبة رقم 1 عادي لو هي "وحيدة" في تخصصها، لكن لو تخصص متكرر زي "تجارة"، لازم تملى كل كليات (أ) الأول وبعدين (ب) وبعدين (ج).
             </p>
 
+            <p>🔥 <b>حركة المعلمين:</b> لو مجموعك يدوبك على الحركرك، املأ "كل" الجامعات اللي في نطاق (ج) البعيدة (زي أسوان أو الوادي الجديد) في آخر الرغبات. ليه؟ عشان تضمن "مكان" في الكلية اللي بتحبها، وبعدين ترجع بلدك بـ "تقليل الاغتراب" زي ما شرحنا فوق. المهم تضمن الكلية الأول!</p>
         </div>
+    </details>
 
+    <details style="background: #fff1f2; border-right: 6px solid #f43f5e; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #9f1239; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            ⏳ مراحل التنسيق: ليه مجموعك "مش هو" اللي بيحدد المرحلة؟
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #4c0519;">
+            <p>التنسيق 3 مراحل، والمرحلة مش "عقاب"، دي مجرد تنظيم زحمة:</p>
+            <p>• <b>المرحلة الأولى:</b> بتاخد "كريمة" المجموع (طب، هندسة، ألسن).<br>
+            • <b>المرحلة الثانية:</b> دي "المرحلة الذهبية"، بيبقى فيها لسه كليات قمة كتير (حاسبات، تمريض، علوم، تجارة لغات).<br>
+            • <b>المرحلة الثالثة:</b> دي لباقي الطلاب والمعاهد العليا.</p>
+
+            <p style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #f43f5e;">
+                💡 <b>نصيحة من القلب:</b> لو مجموعك نزل بيك للمرحلة التانية، "متقلقش وتكتئب". السنة اللي فاتت حاسبات وعلوم نزلت مرحلة تانية بفرق درجات بسيط جداً. التنسيق "عرض وطلب"، طول ما زمايلك خايفين وكاتبين غلط، أنت فرصتك بتزيد لو مرتب رغباتك صح.
+            </p>
+            
+            <p>⚠️ <b>تحذير:</b> أوعى تسيب "رغبات فاضية". لازم تملى الـ 75 رغبة كلهم. لو سيبت رغبات، السيستم ممكن يحطك في أي حاجة عشوائية بعيدة عن خيالك!</p>
+        </div>
+    </details>
+
+
+<details style="background: #fdf4ff; border-right: 6px solid #a21caf; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #701a75; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            🔄 إزاي "تلف وتجيب" الكلية اللي بعيدة عنك؟ (تقليل الاغتراب)
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #4a044e;">
+            <p>بص يا بطل، لو جالك كلية في محافظة بعيدة، متتخضش! فيه مرحلة اسمها <b>"تقليل الاغتراب"</b> بتفتح بعد المرحلة التانية:<br>
+            • <b>تحويل مناظر:</b> لو جالك هندسة أسوان وأنت من القاهرة، بتقدم تحويل لـ "هندسة القاهرة"، والسيستم بيقبلك لو أنت ضمن الـ 10% اللي مجموعهم أعلى.<br>
+            • <b>تحويل غير مناظر:</b> لو جالك هندسة وعايز تحول "تجارة" جنب بيتك، ده بيتقبل فوراً مادام مجموعك جايب الحد الأدنى لتجارة القاهرة.<br>
+            • <b>ملحوظة ذهبية:</b> التحويل ملوش علاقة بـ "الواسطة"، ده سيستم إلكتروني بيحسب مجموعك والمسافة الجغرافية وبس!</p>
+        </div>
+    </details>
+
+
+<details style="background: #f0fdfa !important; border-right: 6px solid #0d9488 !important; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); color: #042f2e !important;">
+    <summary style="color: #0f766e !important; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none; list-style: none;">
+        📍 يعني إيه كلية "إقليمية"؟ (عشان رغبتك متترفضش)
+    </summary>
+    <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #042f2e !important;">
+        <p style="color: #042f2e !important;">
+            فيه كليات زي <b>(التربية، والتربية النوعية)</b> اسمها كليات إقليمية. يعني إيه؟<br>
+            • يعني ماينفعش طالب من القاهرة يروح يقدم في تربية المنصورة حتى لو جايب مجموعها!<br>
+            • لازم تقدم في الكلية اللي تابعة لمحافظتك (سكنك) المكتوبة في شهادة الثانوية.<br>
+            <br>
+            <span style="background: #0d9488; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.9em;">تحديث 2026:</span> 
+            <b>كليات التمريض</b> مابقتش إقليمية خلاص، تقدر تغترب فيها عادي بس بالترتيب الجغرافي (أ، ب، ج).
+        </p>
     </div>
+</details>
+
+
+
+    <details style="background: #fefce8; border-right: 6px solid #ca8a04; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #854d0e; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            🚀 تعمل إيه في "أطول إجازة" في حياتك؟ (تجهيز لسوق العمل)
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #422006;">
+            <p>الإجازة اللي بعد الثانوية دي هي اللي بتبني مستقبلك فعلاً. متضيعهاش كلها نوم:<br>
+            1. <b>اللغة الإنجليزية:</b> والله يا ابني هي اللي بتفرق في المرتب بعدين، ابدأ كورسات أونلاين مجانية.<br>
+            2. <b>مهارات الكمبيوتر:</b> لازم تكون برنس في (Word, Excel, PowerPoint) مهما كانت كليتك.<br>
+            3. <b>الذكاء الاصطناعي:</b> اتعلم إزاي تستخدم أدوات زي ChatGPT عشان يساعدك في المذاكرة والأبحاث في الجامعة.</p>
+        </div>
+    </details>
+
+    <details style="background: #fff1f2; border-right: 6px solid #e11d48; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #9f1239; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            🚫 احذر "الكيانات الوهمية" (ماترميش فلوسك في الأرض)
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #4c0519;">
+            <p>هتسمع إعلانات كتير عن "أكاديميات" بتديك شهادة تمريض أو هندسة في سنتين ومعتمدة. <b>كل ده نصب!</b><br>
+            • أي مكان مش موجود في موقع التنسيق الرسمي يبقى شهادته "ورقة ملونة" ملهاش لازمة في سوق العمل ولا النقابة.<br>
+            • اتأكد إن المعهد أو الكلية ليها "رقم طابع" في التنسيق.</p>
+        </div>
+    </details>
+
+
+    <details style="background: #fdf2f8; border-right: 6px solid #be185d; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <summary style="color: #9d174d; font-weight: bold; font-size: 1.2em; cursor: pointer; padding: 20px; outline: none;">
+            ❓ أسئلة بتلف في دماغك (وإجابتها الخلاصة)
+        </summary>
+        <div style="padding: 0 20px 20px 20px; line-height: 1.8; color: #500724;">
+            <p><b>• هل كليات القمة في المحافظات البعيدة شهادتها أقل؟</b><br>إطلاقاً! الختم واحد "جمهورية مصر العربية"، ونقابة المهندسين أو الأطباء مش بتفرق بينك وبين أي حد.<br>
+            <b>• يعني إيه تحويل ورقي؟</b> مفيش حاجة اسمها تحويل ورقي! كل التعامل "إلكتروني" فقط من خلال الموقع الرسمي.<br>
+            <b>• لو جالي معهد عالي 4 سنين، هل ده زي الكلية؟</b> أيوة، بيدي درجة "البكالوريوس" ومعتمد من المجلس الأعلى للجامعات وليك حق القيد في النقابة.<br>
+            <b>• ينفع أشتغل وأنا بدرس؟</b> طبعاً، بس لو كليتك "عملية" خلي الشغل في الإجازة الصيفية بس عشان متقصرش في دراستك.</p>
+        </div>
+    </details>
+
+
+    <div style="background: #eff6ff; padding: 25px; border: 2px dashed #1e40af; border-radius: 12px; text-align: center; margin-top: 20px;">
+        <h4 style="color: #1e40af; margin-bottom: 10px; font-weight: bold;">❤️ كلمة أخيرة من قلب أخوك الكبير</h4>
+        <p style="color: #1e3a8a; line-height: 1.6;">لو مجموعك مجابش الكلية اللي كنت بتحلم بيها، ده مش نهاية العالم. النجاح الحقيقي إنك تكون شاطر في المكان اللي ربنا اختارهولك. اتعب، اتعلم لغة، وطور مهاراتك.. وهتفتكر الكلام ده بعد 4 سنين وتعرف إن ربنا كان شايلك الأفضل.</p>
+    </div>
+
+
 </div>
+
 
 
 
             <footer style="margin: 40px 0; text-align: center;">
-                <a href="https://tansik.digital.gov.eg" target="_blank" style="background: #1e3a8a; color: white; text-decoration: none; padding: 15px 35px; border-radius: 8px; font-weight: bold; display: inline-block;">زيارة موقع التنسيق الرسمي 🌐</a> 
+                <a href="https://tansik.digital.gov.eg" target="_blank" class="btn-official">زيارة موقع التنسيق الرسمي 🌐</a> 
             </footer>
 
         </div>
     </div>
 
     <footer class="no-print" style="text-align: center; padding: 30px; border-top: 1px solid #eee; background: #f1f5f9;">
-        <h3 style="margin: 0;">💝 إهداء خاص من</h3>
+        <h3>💝 إهداء خاص من</h3>
         <p style="font-size: 1.2rem; margin: 10px 0;"><b>معرض الصعيدي للأدوات الصحية</b></p>
-        <p style="color: #64748b;">بشتيل - إمبابة (بجوار شارع الرحمن)</p>
+        <p style="color: #64748b;">شارع مسجد الرحمن - بشتيل - إمبابة</p>
     </footer>
 
     <script src="elmy_data.js"></script>
@@ -280,7 +374,6 @@
         function showInputFields() {
             document.getElementById('input-area').style.display = 'block';
             document.getElementById('start-design').style.display = 'none';
-            // سكرول لمكان المدخلات
             document.getElementById('input-area').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -294,16 +387,5 @@
             }
         }
     </script>
-	
-	<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log('جاهز للعمل بدون إنترنت!'))
-      .catch(err => console.log('فشل تسجيل الـ SW', err));
-  }
-</script>
-	
-	
-	
 </body>
 </html>
