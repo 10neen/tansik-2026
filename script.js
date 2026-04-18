@@ -282,13 +282,6 @@ function generateWishes() {
 
 
 
-
-
-
-
-
-
-
 function renderSmartTable(data, container, userLocation, sortType, locationMap) {
     let scoreValue = document.getElementById('student-score').value;
     let branchText = document.getElementById('student-branch').options[document.getElementById('student-branch').selectedIndex].text;
@@ -454,3 +447,35 @@ window.onclick = function(event) {
         }
     }
 }
+
+
+// كود حساب النسبة المئوية لحظياً
+const scoreInput = document.getElementById('student-score');
+
+scoreInput.addEventListener('input', function() {
+    let score = parseFloat(this.value);
+    if (score > 320) {
+        alert("يا بطل المجموع آخره 320، ركز يا وحش! 😂");
+        this.value = 320;
+        score = 320;
+    }
+    
+    let percentage = ((score / 320) * 100).toFixed(2);
+    
+    // لإظهار النسبة بجانب الخانة (تأكد من وجود عنصر له هذا الـ ID في الـ HTML)
+    let percentDisplay = document.getElementById('percent-display');
+    if (!percentDisplay) {
+        // لو مش موجود، بننشئه تحت خانة الدرجات
+        percentDisplay = document.createElement('p');
+        percentDisplay.id = 'percent-display';
+        percentDisplay.style.color = '#059669';
+        percentDisplay.style.fontWeight = 'bold';
+        scoreInput.parentNode.insertBefore(percentDisplay, scoreInput.nextSibling);
+    }
+    
+    if (score > 0) {
+        percentDisplay.innerHTML = `🎯 نسبتك المئوية هي: ${percentage}%`;
+    } else {
+        percentDisplay.innerHTML = '';
+    }
+});
