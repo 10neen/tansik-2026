@@ -124,8 +124,9 @@ archiveData.forEach((item, index) => {
 // ==========================================
 
 
+
 // ==========================================
-// 3. المحرك الأساسي المعدل (بدون تفاوت)
+// 3. المحرك الأساسي (نسخة التصفية النهائية + التوزيع الجغرافي الكامل)
 // ==========================================
 
 function generateWishes() {
@@ -146,7 +147,7 @@ function generateWishes() {
     var score = parseFloat(scoreEl.value);
     var branch = branchEl.value; 
     var userLocation = locationEl.value; 
-    var excludeText = excludeEl.value.trim().toLowerCase().replace(/[<>]/g, "");
+    var excludeText = excludeEl.value.trim();
 
     if (isNaN(score) || score < 160 || score > 320) {
         alert("يا بطل، المجموع لازم يكون رقم بين 160 و 320! راجع مجموعك تاني.");
@@ -160,7 +161,17 @@ function generateWishes() {
 
     resultsArea.innerHTML = `<div style='text-align:center; padding:30px;'><p style='color: #1e3a8a; font-weight:bold;'>⏳ جاري تحليل أفضل 75 رغبة لمجموعك (${score})...</p></div>`;
 
-    // خريطة التوزيع الجغرافي (تظل كما هي في كودك الأصلي)
+    // دالة تنظيف النص لضمان عدم الهروب من التصفية
+    function normalize(text) {
+        if (!text) return "";
+        return text.trim()
+            .replace(/[أإآ]/g, "ا")
+            .replace(/ة/g, "ه")
+            .replace(/ى/g, "ي")
+            .replace(/\s+/g, " ");
+    }
+
+    // خريطة التوزيع الجغرافي الكاملة
     var locationMap = {
         'cairo_giza': { 'a': ['القاهرة', 'عين شمس', 'حلوان'], 'b': ['بنها', 'الفيوم', 'المنوفية'] },
         'qalyubia_1': { 'a': ['بنها'], 'b': ['القاهرة', 'عين شمس', 'حلوان', 'الفيوم', 'المنوفية', 'طنطا', 'الزقازيق'] },
@@ -201,80 +212,87 @@ function generateWishes() {
         if (!Array.isArray(rawData) || rawData.length === 0) throw new Error("بيانات التنسيق غير متوفرة!");
 
         var colleges = [];
+        var cleanExclude = normalize(excludeText);
+
         rawData.forEach(function(item) {
-            var name = item.name.trim();
-            // دعم الاسمين minScore أو score لضمان عدم التعليق
+            var rawName = item.name.trim();
+            var name = normalize(rawName);
             var minScore = parseFloat(item.minScore || item.score);
-            if (isNaN(minScore)) return;
+            
+            if (isNaN(minScore) || score < minScore) return;
 
-            // التعديل الجوهري: المجموع لازم يكون أقل من أو يساوي مجموع الطالب بالظبط
-            if (score >= minScore) {
-                var isMatch = true;
+            var isMatch = true;
+
+            // 1. فلتر الاستبعاد اليدوي
+            if (cleanExclude && name.includes(cleanExclude)) isMatch = false;
+
+            // 2. تصفية (علوم vs رياضة) بناءً على ملحوظاتك
+            if (isMatch) {
+                var hasMathWord = name.includes("رياضه");
                 
-                if (excludeText && name.toLowerCase().includes(excludeText)) isMatch = false;
+                if (branch === 'math') {
+                    // الكليات المشتركة (لو مفيش كلمة رياضة يبقى دي بتاعة علوم واختفي يا بطل)
+                    var sharedKeys = ["زراعه", "علوم", "السن", "فني صحي", "معهد فني", "تربيه", "فنون تطبيقيه", "اعلام", "اقتصاد"];
+                    var isShared = sharedKeys.some(key => name.includes(normalize(key)));
+                    
+                    if (isShared && !hasMathWord) isMatch = false;
 
-                // فلتر علمي رياضة
-                if (isMatch && branch === 'math') {
-                    var medTerms = ["طب ", "أسنان", "اسنان", "صيدلة", "صيدله", "علاج طبيعي", "علاج طبيعى", "بيطري", "بيطرى", "تمريض", "معهد فني صحي", "معهد فنى صحى"];
-                    if (medTerms.some(key => name.includes(key)) && !name.includes("رياضة") && !name.includes("رياضه")) {
-                        isMatch = false;
-                    }
-                    if (isMatch && (name.endsWith("علوم") || name.includes(" شعبة علوم") || name.includes(" شعبه علوم") || name.includes("(علوم)"))) {
-                        isMatch = false;
-                    }
+                    // استبعاد طبي صرف
+                    var medOnly = ["طب", "اسنان", "صيدله", "علاج طبيعي", "بيطري", "تمريض"];
+                    if (medOnly.some(key => name.includes(normalize(key))) && !hasMathWord) isMatch = false;
                 } 
-                
-                // فلتر علمي علوم
-                else if (isMatch && branch === 'science') {
-                    var mathTerms = ["هندسة", "هندسه", "عمارة", "عماره", "فنون جميلة عمارة", "فنون جميله عماره", "تكنولوجيا", "التكنولوجي", "المساحة", "تطبيقية", "رياضة", "تخطيط عمراني", "فني صناعي"];
-                    if (mathTerms.some(key => name.includes(key))) {
-                        isMatch = false;
-                    }
-                }
+                else if (branch === 'science') {
+                    // طالب علوم ممنوع يشوف كلمة "رياضة" في أي كلية مشتركة أو غيرها
+                    if (hasMathWord) isMatch = false;
 
-                if (isMatch) {
-                    // توحيد اسم الخاصية لعرضها في الجدول لاحقاً
-                    item.minScore = minScore; 
-                    colleges.push(item);
+                    // استبعاد هندسي صرف
+                    var engOnly = ["هندسه", "عماره", "تخطيط عمراني", "فني صناعي", "المساحه"];
+                    if (engOnly.some(key => name.includes(normalize(key)))) isMatch = false;
                 }
+            }
+
+            if (isMatch) {
+                item.minScore = minScore; 
+                colleges.push(item);
             }
         });
 
-        // الترتيب: دايماً المجموع الأعلى للأقل (عشان أول رغبة هي سقف مجموعه)
+        // 3. الترتيب الذكي (جغرافي + مجموع)
         colleges.sort(function(a, b) {
-            // لو الطالب اختار ترتيب جغرافي
             if (sortType === 'location' && userLocation && locationMap[userLocation]) {
                 var zones = locationMap[userLocation];
                 var getWeight = function(c) {
-                    var colName = c.name;
-                    if (zones.a.some(city => colName.includes(city))) return 1;
-                    if (zones.b && zones.b.some(city => colName.includes(city))) return 2;
+                    var n = normalize(c.name);
+                    // نطاق أ
+                    if (zones.a.some(city => n.includes(normalize(city)))) return 1;
+                    // نطاق ب
+                    if (zones.b && zones.b.some(city => n.includes(normalize(city)))) return 2;
+                    // نطاق ج
                     return 3;
                 };
                 var weightA = getWeight(a);
                 var weightB = getWeight(b);
+                
                 if (weightA !== weightB) return weightA - weightB;
             }
-            // الترتيب الأساسي بالمجموع
+            // لو نفس النطاق أو الترتيب بالمجموع، الأعلى درجة يظهر الأول
             return parseFloat(b.minScore) - parseFloat(a.minScore);
         });
 
         var finalSelection = colleges.slice(0, 75);
         
-        // تأخير بسيط لشياكة العرض
         setTimeout(function() {
             if (finalSelection.length === 0) {
-                resultsArea.innerHTML = "<div class='card' style='text-align:center; color:#be123c; padding:20px; background:#fff1f2; border-radius:10px;'>عذراً يا بطل، مفيش كليات في الأرشيف تناسب المجموع ده حالياً.</div>";
+                resultsArea.innerHTML = "<div class='card' style='text-align:center; color:#be123c; padding:20px; background:#fff1f2; border-radius:10px;'>عذراً يا بطل، مفيش كليات تناسب المجموع والشعبة حالياً.</div>";
             } else {
                 renderSmartTable(finalSelection, resultsArea, userLocation, sortType, locationMap);
             }
         }, 500);
 
     } catch (error) {
-        resultsArea.innerHTML = "<div class='card' style='text-align:center; color:red;'>⚠️ خطأ في معالجة البيانات: " + error.message + "</div>";
+        resultsArea.innerHTML = "<div class='card' style='text-align:center; color:red;'>⚠️ خطأ: " + error.message + "</div>";
     }
 }
-
 
 
 
@@ -323,8 +341,7 @@ function renderSmartTable(data, container, userLocation, sortType, locationMap) 
             }
         }
         
-var googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.name)}`;
-
+var googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(c.name)}`;
         tableHtml += `
         <tr style="background-color: ${bgColor}; border-bottom: 2px solid #fff;">
             <td style="text-align:center; font-weight:bold; padding:12px; border-left: 5px solid ${borderColor}; color: ${textColor};">${index + 1}</td>
@@ -351,131 +368,127 @@ var googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURI
     document.getElementById('my-final-table').scrollIntoView({ behavior: 'smooth' });
 }
 
-// حماية الكود من التلاعب
+
+// ==========================================
+// 4. حماية الكود والخصوصية
+// ==========================================
+
+// منع كليك يمين واختصارات المطورين
 document.addEventListener('contextmenu', event => event.preventDefault());
+
 document.onkeydown = function(e) {
-    if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0)))) {
+    // منع F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+Shift+J, Ctrl+U
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && ['I','C','J'].includes(String.fromCharCode(e.keyCode))) || 
+        (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
         return false;
     }
 };
 
-
-
-// 1. منع كليك يمين تماماً
-document.addEventListener('contextmenu', event => event.preventDefault());
-
-// 2. منع اختصارات الكيبورد (F12, Ctrl+Shift+I, Ctrl+U)
-document.onkeydown = function(e) {
-    // منع F12
-    if (e.keyCode == 123) {
-        return false;
-    }
-    // منع Ctrl+Shift+I (Inspect)
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    // منع Ctrl+Shift+C (الماوس بتاع الـ Inspect)
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    // منع Ctrl+Shift+J (Console)
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    // منع Ctrl+U (View Source)
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-};
-
-// 3. حركة صايعة: لو فتح الـ DevTools بأسلوب تاني، الكود يدخل في "LooP" يعطله
+// حركة صايعة لاكتشاف فتح الـ DevTools
 (function() {
     var element = new Image();
     Object.defineProperty(element, 'id', {
         get: function() {
-            // هنا ممكن تبعت تنبيه لنفسك أو تقفل الصفحة
             window.location.href = "about:blank"; 
         }
     });
     console.log(element);
 })();
 
-
+// ==========================================
+// 5. وظائف إضافية (Dark Mode & Share)
+// ==========================================
 
 function toggleDarkMode() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
     document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme); // عشان لما يقفل ويفتح يفضل على وضعه
+    localStorage.setItem('theme', newTheme);
 }
 
-// تشغيل الوضع المختار أول ما الصفحة تفتح
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-});
 
 
 function shareToPlatform(platform) {
-    const url = "https://10neen.github.io/tansik-2026/";
+    // الكود ده بيسحب الرابط اللي المستخدم فاتحه حالياً أياً كان (جيت هب أو نتفلاي)
+    const currentUrl = window.location.href; 
     const text = "يا بطل، الموقع ده بيجيب الخلاصة في ترتيب رغبات التنسيق.. جربه بالمزورة!";
     
     let shareUrl = "";
 
     if (platform === 'facebook') {
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    } else if (platform === 'whatsapp') {
-        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + " " + url)}`;
+        // فيسبوك محتاج رابط يبدأ بـ http أو https عشان ميطلعش Error
+        // لو المستخدم بيجرب "Offline" من جهازه، هنبعت رابط "جيت هب" كاحتياطي
+        const finalUrl = currentUrl.startsWith('http') ? currentUrl : "https://10neen.github.io/tansik-2026/";
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(finalUrl)}`;
+    } 
+    else if (platform === 'whatsapp') {
+        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + " " + currentUrl)}`;
     }
 
     window.open(shareUrl, '_blank', 'width=600,height=400');
 }
 
+
+
 function toggleShareMenu() {
     const menu = document.getElementById('share-menu');
-    // تبديل الإظهار والإخفاء
-    menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
-}
-
-// حركة إضافية: لو داس في أي مكان بره القائمة تتقفل لوحدها
-window.onclick = function(event) {
-    if (!event.target.matches('button')) {
-        const menu = document.getElementById('share-menu');
-        if (menu && menu.style.display === 'block') {
-            menu.style.display = 'none';
-        }
+    if (menu) {
+        menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
     }
 }
 
 
-// كود حساب النسبة المئوية لحظياً
-const scoreInput = document.getElementById('student-score');
 
-scoreInput.addEventListener('input', function() {
-    let score = parseFloat(this.value);
-    if (score > 320) {
-        alert("يا بطل المجموع آخره 320، ركز يا وحش! 😂");
-        this.value = 320;
-        score = 320;
-    }
-    
-    let percentage = ((score / 320) * 100).toFixed(2);
-    
-    // لإظهار النسبة بجانب الخانة (تأكد من وجود عنصر له هذا الـ ID في الـ HTML)
-    let percentDisplay = document.getElementById('percent-display');
-    if (!percentDisplay) {
-        // لو مش موجود، بننشئه تحت خانة الدرجات
-        percentDisplay = document.createElement('p');
-        percentDisplay.id = 'percent-display';
-        percentDisplay.style.color = '#059669';
-        percentDisplay.style.fontWeight = 'bold';
-        scoreInput.parentNode.insertBefore(percentDisplay, scoreInput.nextSibling);
-    }
-    
-    if (score > 0) {
-        percentDisplay.innerHTML = `🎯 نسبتك المئوية هي: ${percentage}%`;
-    } else {
-        percentDisplay.innerHTML = '';
+function copyToClipboard() {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl).then(() => {
+        alert("✅ تم نسخ الرابط بنجاح.. ابعته لأصحابك!");
+    });
+}
+
+
+
+
+// ==========================================
+// 6. مراقب الأحداث (Event Listeners)
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. تحميل الثيم المحفوظ
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // 2. حساب النسبة المئوية لحظياً
+    const scoreInput = document.getElementById('student-score');
+    if (scoreInput) {
+        scoreInput.addEventListener('input', function() {
+            let score = parseFloat(this.value);
+            if (score > 320) {
+                alert("يا بطل المجموع آخره 320، ركز يا وحش! 😂");
+                this.value = 320;
+                score = 320;
+            }
+            
+            let percentage = ((score / 320) * 100).toFixed(2);
+            let percentDisplay = document.getElementById('percent-display');
+            
+            if (!percentDisplay) {
+                percentDisplay = document.createElement('p');
+                percentDisplay.id = 'percent-display';
+                percentDisplay.style.cssText = 'color: #059669; font-weight: bold; margin-top: 5px;';
+                scoreInput.parentNode.insertBefore(percentDisplay, scoreInput.nextSibling);
+            }
+            
+            percentDisplay.innerHTML = score > 0 ? `🎯 نسبتك المئوية هي: ${percentage}%` : '';
+        });
     }
 });
+
+// إغلاق القوائم عند الضغط في الخارج
+window.onclick = function(event) {
+    if (!event.target.matches('.share-btn')) { // تأكد أن زر المشاركة له كلاس share-btn
+        const menu = document.getElementById('share-menu');
+        if (menu && menu.style.display === 'block') menu.style.display = 'none';
+    }
+}
