@@ -332,3 +332,205 @@ h1, h2, h3, .college-name {
 [data-theme="dark"] .accordion-header {
     color: var(--text-primary) !important;
 }
+
+
+/* العناوين الرئيسية داخل الفورم */
+.main-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 10px;
+}
+
+/* حاوية خيارات الترتيب */
+.sort-options-container {
+    margin-bottom: 25px;
+    background: #f8fafc; /* خلفية خفيفة لتمييز قسم الاختيار */
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+/* جعل خيارات الراديو فوق بعض بشكل عمودي مريح */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* مسافة ممتازة بين الخيارات تمنع اللخبطة */
+    padding-right: 5px;
+}
+
+/* تنسيق ليبل الراديو لتسهيل الضغط */
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #475569;
+    user-select: none;
+}
+
+/* تكبير زر الراديو الدائري والمباعدة بينه وبين النص */
+.radio-label input[type="radio"] {
+    appearance: none; /* إخفاء الشكل الافتراضي القديم للمتصفح */
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    margin-left: 12px; /* مسافة من اليسار لأن الاتجاه RTL */
+    outline: none;
+    background-color: #fff;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    transition: all 0.2s ease;
+}
+
+/* حركة تلوين الدائرة عند الاختيار */
+.radio-label input[type="radio"]:checked {
+    border-color: #059669;
+}
+
+.radio-label input[type="radio"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 0.15s transform ease-in-out;
+    background-color: #059669;
+}
+
+.radio-label input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+/* تحسين حقل الإدخال النصي */
+.input-group {
+    margin-bottom: 25px;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px; /* حواف دائرية ناعمة */
+    font-size: 1rem;
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* تأثير الإضاءة البسيطة عند تفعيل حقل النص */
+.custom-input:focus {
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+/* تحسين زر الرغبات الرئيسي */
+.btn-submit-wishes {
+    background: #059669;
+    color: white;
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.2);
+    transition: all 0.2s ease;
+}
+
+/* تأثير الماوس (Hover) على زر الرغبات */
+.btn-submit-wishes:hover {
+    background: #047857;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px -2px rgba(5, 150, 105, 0.3);
+}
+
+.btn-submit-wishes:active {
+    transform: translateY(1px);
+}
+
+/* تنسيق نصائح الاستخدام والألوان */
+.usage-tips {
+    background: #fafafa;
+    border-right: 4px solid #64748b;
+    padding: 15px;
+    border-radius: 4px 8px 8px 4px;
+    margin-bottom: 30px;
+}
+
+.usage-tips h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #334155;
+    margin-bottom: 12px;
+}
+
+.tip-row {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #475569;
+}
+
+.tip-row span {
+    margin-left: 8px;
+    font-size: 1.1rem;
+}
+
+.dot-green { color: #16a34a; }
+.dot-blue { color: #2563eb; }
+.dot-red { color: #dc2626; }
+
+/* تنسيق قسم الأرشيف والأزرار بالأسفل */
+.archive-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.archive-section h3 {
+    color: #475569;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.archive-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-archive {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-elmy {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+}
+
+.btn-elmy:hover {
+    background-color: #dbeafe;
+}
+
+.btn-adaby {
+    background-color: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.btn-adaby:hover {
+    background-color: #fee2e2;
+}
