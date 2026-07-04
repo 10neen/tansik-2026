@@ -51,7 +51,7 @@
     <meta name="theme-color" content="#1e3a8a">
     <link rel="icon" type="image/jpeg" href="header_bg.jpg">
     <link rel="apple-touch-icon" href="header_bg.jpg">
-    
+    <link rel="apple-touch-icon" href="icon-192.jpg">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
@@ -138,37 +138,56 @@
                     </select>
                 </div>
 
-                <div class="sort-options" style="margin: 15px 0;">
-                    <label>📊 ترتيب النتائج حسب:</label>
-                    <input type="radio" name="sort-type" value="score" checked> المجموع
-                    <input type="radio" name="sort-type" value="location"> السكن
+
+<!-- خيارات الترتيب -->
+            <div class="sort-options-container">
+                <label class="main-label">📊 ترتيب النتائج حسب:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="sort-type" value="score" checked>
+                        <span>المجموع الدراسي</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="sort-type" value="location">
+                        <span>النطاق الجغرافي (السكن)</span>
+                    </label>
                 </div>
 
-                <label>🚫 استبعاد كليات أو محافظات (اختياري):</label>
-                <input type="text" id="exclude-colleges" class="form-control" placeholder="مثلاً: تمريض، أسوان، معهد">
-                
-                <button class="btn-primary" style="background:#059669; color:white; width: 100%; padding: 18px; margin-top: 15px; font-size: 1.1rem;" onclick="generateWishes()">🚀 إظهار الرغبات الآن</button>
-				
-				
+            <!-- حقل الاستبعاد -->
+            <div class="input-group">
+                <label for="exclude-colleges" class="main-label">🚫 استبعاد كليات أو محافظات (اختياري):</label>
+                <input type="text" id="exclude-colleges" class="form-control custom-input" placeholder="مثلاً: تمريض، أسوان، معهد">
             </div>
+            
+            <!-- زر الإجراء الرئيسي -->
+            <button class="btn-submit-wishes" onclick="generateWishes()">
+                🚀 إظهار الرغبات الآن
+            </button>
+            
+        </div> <!-- إغلاق الـ div الأساسي للفورم -->
 
-            <div id="results-area" style="margin-top: 25px;"></div>
+        <div id="results-area" style="margin-top: 25px;"></div>
 
-            <hr style="border: 0.5px solid #eee; margin: 40px 0;">
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 40px 0;">
 
-            <div class="usage-tips no-print">
-                <h3>💡 نصائح الاستخدام (النطاق الجغرافي):</h3>
-                <div class="tip-row"><span style="color: #16a34a;">●</span> الأخضر: نطاق (أ) الأقرب لسكنك</div>
-                <div class="tip-row"><span style="color: #2563eb;">●</span> الأزرق: نطاق (ب) المحافظات المجاورة</div>
-                <div class="tip-row"><span style="color: #dc2626;">●</span> الأحمر: نطاق (ج) الكليات البعيدة</div>
+        <!-- نصائح الاستخدام -->
+        <div class="usage-tips no-print">
+            <h3>💡 نصائح الاستخدام (النطاق الجغرافي):</h3>
+            <div class="tip-row"><span class="dot-green">●</span> الأخضر: نطاق (أ) الأقرب لسكنك</div>
+            <div class="tip-row"><span class="dot-blue">●</span> الأزرق: نطاق (ب) المحافظات المجاورة</div>
+            <div class="tip-row"><span class="dot-red">●</span> الأحمر: نطاق (ج) الكليات البعيدة</div>
+        </div>
+
+        <!-- الأرشيف -->
+        <div class="archive-section">
+            <h3>📊 تنسيق عام 2025 (أرشيف للذكرى)</h3>
+            <div class="archive-buttons">
+                <button class="btn-archive btn-elmy" onclick="viewArchive('elmy')">👨‍⚕️ المجموعة العلمية</button>
+                <button class="btn-archive btn-adaby" onclick="viewArchive('adaby')">📚 المجموعة الأدبية</button>
             </div>
+        </div>
+        <div id="archive-results"></div>
 
-            <div class="archive-buttons-container" style="text-align:center; margin-top: 30px;">
-                <h3 style="color: #475569; margin-bottom: 15px;">📊 تنسيق عام 2025 (أرشيف للذكرى)</h3>
-                <button class="btn-elmy" onclick="viewArchive('elmy')">المجموعة العلمية</button>
-                <button class="btn-adaby" onclick="viewArchive('adaby')">المجموعة الأدبية</button>
-            </div>
-            <div id="archive-results"></div>
 
 
 <div id="saidi-guide" style="max-width: 900px; margin: 20px auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: rtl;">
@@ -396,6 +415,17 @@
     <script src="elmy_data.js"></script>
     <script src="adaby_data.js"></script>
     <script src="script.js"></script>
+
+<script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((reg) => console.log('تم تفعيل ميزة التشغيل بدون نت بنجاح! ✅', reg))
+                    .catch((err) => console.error('فشل تفعيل ميزة التشغيل بدون نت ❌:', err));
+            });
+        }
+    </script>
+
 
     </body>
 </html>
