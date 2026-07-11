@@ -2,7 +2,7 @@
 
 // الإصدار 2.7 - بوابة الصعيدي للتنسيق (النسخة6الذكية)
 
-const CACHE_NAME = 'tansik-saidi-v2.7'; 
+const CACHE_NAME = 'tansik-saidi-v2.8'; 
 const assets = [
   './',
   './index.html',
