@@ -1,7 +1,6 @@
 // ==========================================
 // 1. وظائف الواجهة (الإظهار والإخفاء)
 // ==========================================
-
 function showInputFields() {
     var inputArea = document.getElementById('input-area');
     var startBtn = document.getElementById('start-design');
@@ -16,7 +15,6 @@ function showInputFields() {
         });
     }
 }
-
 function handleBranchChange() {
     var branchSelect = document.getElementById('student-branch');
     var locWrapper = document.getElementById('location-wrapper');
@@ -29,18 +27,38 @@ function handleBranchChange() {
     if (branch && validBranches.includes(branch)) {
         locWrapper.classList.remove('hidden');
         locWrapper.style.opacity = "1";
+        
+        // 1. لو الطالب اختار علمي علوم أو رياضة والملف لسه متحملش
+        if ((branch === 'science' || branch === 'math') && !window.elmyDataJSON) {
+            var script = document.createElement('script');
+            script.src = 'elmy_data.js';
+            document.body.appendChild(script);
+            
+            // سحر الجافا سكريبت: أول ما الملف يخلص تحميل، لو الطالب ضغط على الزرار، الكود هيشتغل فوراً
+            script.onload = function() {
+                console.log("تم تحميل بيانات العلمي بنجاح وجاهزة للاستخدام! 👨‍⚕️");
+            };
+        } 
+        // 2. لو الطالب اختار أدبي والملف لسه متحملش
+        else if (branch === 'adaby' && !window.adabyDataJSON) {
+            var script = document.createElement('script');
+            script.src = 'adaby_data.js';
+            document.body.appendChild(script);
+            
+            script.onload = function() {
+                console.log("تم تحميل بيانات الأدبي بنجاح وجاهزة للاستخدام! 📚");
+            };
+        }
+        
     } else {
         locWrapper.classList.add('hidden');
-        document.getElementById('student-location').value = ""; 
+        var locSelect = document.getElementById('student-location');
+        if (locSelect) locSelect.value = ""; 
     }
 }
-
 // ==========================================
-// 2. دالة تشغيل الأرشيف
+// 2. دالة تشغيل الأرشيف الذكية (Lazy Loading)
 // ==========================================
-
-
-
 function viewArchive(type) {
     const resultsArea = document.getElementById('archive-results'); 
     
@@ -51,18 +69,42 @@ function viewArchive(type) {
         return;
     }
 
-    let archiveData = (type === 'elmy') ? (window.elmyDataJSON || window.elmyData || []) : (window.adabyDataJSON || window.adabyData || []);
-
-    if (archiveData.length === 0) {
-        alert("⚠️ تأكد من وجود ملفات البيانات");
+    // 🚀 أولاً: التأكد من تحميل ملف البيانات المطلوب ديناميكياً
+    if (type === 'elmy' && !window.elmyDataJSON) {
+        var script = document.createElement('script');
+        script.src = 'elmy_data.js';
+        document.body.appendChild(script);
+        script.onload = function() {
+            console.log("تم تحميل ملف العلمي للأرشيف ✅");
+            renderArchiveHTML(type, window.elmyDataJSON);
+        };
         return;
     }
-
+    if (type === 'adaby' && !window.adabyDataJSON) {
+        var script = document.createElement('script');
+        script.src = 'adaby_data.js';
+        document.body.appendChild(script);
+        script.onload = function() {
+            console.log("تم تحميل ملف الأدبي للأرشيف ✅");
+            renderArchiveHTML(type, window.adabyDataJSON);
+        };
+        return;
+    }
+    // لو الملفات متوفرة مسبقاً، اعرض الجدول مباشرة
+    let archiveData = (type === 'elmy') ? window.elmyDataJSON : window.adabyDataJSON;
+    renderArchiveHTML(type, archiveData);
+}
+// 🛠️ دالة فرعية مسؤولة عن بناء وعرض كود الـ HTML للجدول
+function renderArchiveHTML(type, archiveData) {
+    const resultsArea = document.getElementById('archive-results');
+    if (!archiveData || archiveData.length === 0) {
+        alert("⚠️ تأكد من وجود ملفات البيانات في المجلد الخاص بالموقع");
+        return;
+    }
     const themeColor = (type === 'elmy') ? '#1e3a8a' : '#be123c';
-    resultsArea.dataset.currentType = type; // تخزين النوع الحالي
-
+    resultsArea.dataset.currentType = type;
     let html = `
-        <div class="archive-container" style="border: 2px solid ${themeColor}; margin-top:20px; background:white; border-radius:12px; overflow:hidden; animation: fadeIn 0.5s;">
+        <div class="archive-container" style="border: 2px solid ${themeColor}; margin-top:20px; background:var(--card-bg); border-radius:12px; overflow:hidden; animation: fadeIn 0.5s;">
             <div style="background:${themeColor}; color:white; padding:15px; text-align:center; font-weight:bold; display:flex; justify-content:space-between; align-items:center;">
                 <span></span> <span>📊 أرشيف 2025 - المجموعة ${type === 'elmy' ? 'العلمية' : 'الأدبية'}</span>
                 <button onclick="document.getElementById('archive-results').innerHTML=''" style="background:rgba(255,255,255,0.2); border:none; color:white; cursor:pointer; padding:5px 10px; border-radius:5px;">إغلاق X</button>
@@ -71,36 +113,31 @@ function viewArchive(type) {
             <div style="max-height: 500px; overflow-y: auto;">
                 <table style="width:100%; border-collapse:collapse;" dir="rtl">
                     <thead>
-                        <tr style="background:#f8fafc; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
-                            <th style="padding:12px; border:1px solid #ddd;">م</th>
-                            <th style="padding:12px; border:1px solid #ddd; text-align:right;">الكلية</th>
-                            <th style="padding:12px; border:1px solid #ddd;">الدرجة</th>
+                        <tr style="background:var(--bg); position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                            <th style="padding:12px; border:1px solid var(--border-color); color:var(--text-main);">م</th>
+                            <th style="padding:12px; border:1px solid var(--border-color); text-align:right; color:var(--text-main);">الكلية</th>
+                            <th style="padding:12px; border:1px solid var(--border-color); color:var(--text-main);">الدرجة</th>
                         </tr>
                     </thead>
                     <tbody>
     `;
 
-
-
-// استبدل الجزء الخاص بتوليد الصفوف (الـ Rows) بهذا الكود:
-archiveData.forEach((item, index) => {
-    html += `
-        <tr style="border-bottom: 1px solid var(--border-color);">
-            <td style="padding:10px; text-align:center; color: var(--text-secondary);">${index + 1}</td>
-            <td style="padding:10px; font-weight:bold; color: var(--text-primary); text-align:right;">${item.name}</td>
-            <td style="padding:10px; text-align:center; color: #3b82f6; font-weight:900;">${item.score || item.minScore}</td>
-        </tr>
-    `;
-});
-
-
+    archiveData.forEach((item, index) => {
+        html += `
+            <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding:10px; text-align:center; color: var(--text-muted);">${index + 1}</td>
+                <td style="padding:10px; font-weight:bold; color: var(--text-main); text-align:right;">${item.name}</td>
+                <td style="padding:10px; text-align:center; color: #3b82f6; font-weight:900;">${item.score || item.minScore}</td>
+            </tr>
+        `;
+    });
 
     html += `
                     </tbody>
                 </table>
             </div>
             
-            <div style="background:#f8fafc; padding:10px; text-align:center; border-top:1px solid #ddd;">
+            <div style="background:var(--bg); padding:10px; text-align:center; border-top:1px solid var(--border-color);">
                 <button onclick="document.getElementById('archive-results').innerHTML=''; window.scrollTo({top: document.getElementById('archive-results').offsetTop - 100, behavior:'smooth'});" 
                         style="background:${themeColor}; color:white; border:none; padding:8px 25px; border-radius:20px; cursor:pointer; font-weight:bold;">
                     تم التأكد.. إغلاق الأرشيف ↑
@@ -112,23 +149,9 @@ archiveData.forEach((item, index) => {
     resultsArea.innerHTML = html;
     resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
-
-
-
-
-
-
-// ==========================================
-// 3. المحرك الأساسي (توليد الرغبات)
-// ==========================================
-
-
-
 // ==========================================
 // 3. المحرك الأساسي (نسخة التصفية النهائية + التوزيع الجغرافي الكامل)
 // ==========================================
-
 function generateWishes() {
     var scoreEl = document.getElementById('student-score');
     var branchEl = document.getElementById('student-branch');
@@ -294,12 +317,6 @@ function generateWishes() {
     }
 }
 
-
-
-
-
-
-
 function renderSmartTable(data, container, userLocation, sortType, locationMap) {
     let scoreValue = document.getElementById('student-score').value;
     let branchText = document.getElementById('student-branch').options[document.getElementById('student-branch').selectedIndex].text;
@@ -367,12 +384,9 @@ var googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(c.n
     container.innerHTML = tableHtml;
     document.getElementById('my-final-table').scrollIntoView({ behavior: 'smooth' });
 }
-
-
 // ==========================================
 // 4. حماية الكود والخصوصية
 // ==========================================
-
 // منع كليك يمين واختصارات المطورين
 document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -384,7 +398,6 @@ document.onkeydown = function(e) {
         return false;
     }
 };
-
 // حركة صايعة لاكتشاف فتح الـ DevTools
 (function() {
     var element = new Image();
@@ -406,9 +419,6 @@ function toggleDarkMode() {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
 }
-
-
-
 function shareToPlatform(platform) {
     // الكود ده بيسحب الرابط اللي المستخدم فاتحه حالياً أياً كان (جيت هب أو نتفلاي)
     const currentUrl = window.location.href; 
@@ -428,28 +438,18 @@ function shareToPlatform(platform) {
 
     window.open(shareUrl, '_blank', 'width=600,height=400');
 }
-
-
-
 function toggleShareMenu() {
     const menu = document.getElementById('share-menu');
     if (menu) {
         menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
     }
 }
-
-
-
 function copyToClipboard() {
     const currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl).then(() => {
         alert("✅ تم نسخ الرابط بنجاح.. ابعته لأصحابك!");
     });
 }
-
-
-
-
 // ==========================================
 // 6. مراقب الأحداث (Event Listeners)
 // ==========================================
