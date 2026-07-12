@@ -1,19 +1,19 @@
+// الإصدار 3.0 - بوابة الصعيدي للتنسيق (النسخة الذكية الفائقة)
 
+const CACHE_NAME = 'tansik-saidi-v3.0'; // 🛠️ تم التحديث للإصدار 3
 
-// الإصدار 2.7 - بوابة الصعيدي للتنسيق (النسخة6الذكية)
-
-const CACHE_NAME = 'tansik-saidi-v2.8'; 
 const assets = [
   './',
   './index.html',
   './style.css',
   './script.js',
   './header_bg.jpg',
+  './icon-192.jpg', // ✅ ضيفنا الأيقونة الأولى
+  './icon-512.jpg', // ✅ ضيفنا الأيقونة الثانية
   './elmy_data.js',
   './adaby_data.js',
   './manifest.json'
 ];
-
 // رابط مكتبة الطباعة الخارجية
 const PDF_LIBRARY_URL = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
 
@@ -32,7 +32,6 @@ self.addEventListener('install', e => {
   );
   self.skipWaiting();
 });
-
 // 2. تنظيف الكاش القديم
 self.addEventListener('activate', e => {
   e.waitUntil(
@@ -45,28 +44,32 @@ self.addEventListener('activate', e => {
   );
   self.clients.claim();
 });
-
-// 3. استراتيجية جلب الملفات (Network First مع Fallback للكاش)
+// 3. استراتيجية جلب الملفات الذكية (سرعة فائقة للنت الضعيف)
 self.addEventListener('fetch', e => {
   if (!e.request.url.startsWith('http')) return;
   
   e.respondWith(
-    fetch(e.request)
-      .then(res => {
-        // لو النت شغال، بنحدث الكاش بالنسخة الجديدة
+    caches.match(e.request).then(cachedResponse => {
+      // 🚀 السحر هنا: لو الملف موجود في الكاش، هاته فوراً وبدون أي تأخير (سرعة البرق للنت الضعيف)
+      if (cachedResponse) {
+        
+        // في نفس الوقت، بنحدث الكاش في الخلفية من غير ما نعطل الطالب (Stale-While-Revalidate)
+        fetch(e.request).then(res => {
+          if (res.status === 200 || res.type === 'opaque') {
+            caches.open(CACHE_NAME).then(cache => cache.put(e.request, res));
+          }
+        }).catch(() => console.log("يعمل في وضع الأوفلاين حالياً 📴"));
+        
+        return cachedResponse;
+      }
+      // لو الملف مش في الكاش أصلاً، روّح هاته من النت
+      return fetch(e.request).then(res => {
         if (res.status === 200 || res.type === 'opaque') {
           const resClone = res.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(e.request, resClone);
-          });
+          caches.open(CACHE_NAME).then(cache => cache.put(e.request, resClone));
         }
         return res;
-      })
-      .catch(() => {
-        // لو مفيش نت، هات الملف من الكاش فوراً
-        return caches.match(e.request).then(cachedResponse => {
-          return cachedResponse || caches.match('./index.html');
-        });
-      })
+      }).catch(() => caches.match('./index.html'));
+    })
   );
 });
