@@ -1,13 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
+    <!-- Google Analytics (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0R9E96C9M8"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-0R9E96C9M8');
+        
+        // تعديل ذكي: بيفهم جوجل أناليتكس الرابط الحالي تلقائياً عشان يمنع التكرار
+        gtag('config', 'G-0R9E96C9M8', {
+            'cookie_flags': 'SameSite=None;Secure',
+            'page_location': window.location.href
+        });
     </script>
 
     <meta charset="UTF-8">
@@ -21,9 +28,10 @@
     <meta name="author" content="Hassan Aladawy">
     <meta name="robots" content="index, follow">
 
+    <!-- تعديل الـ Canonical: خليناه يسحب رابط الصفحة الحالي ديناميكياً أو يثبت نتفلاي لإعطائه القوة الأساسية -->
     <link rel="canonical" href="https://tansik-2026.netlify.app/">
-    <link rel="alternate" href="https://10neen.github.io/tansik-2026/" hreflang="ar">
 
+    <!-- إعدادات الـ Open Graph (الفيسبوك) وتحديث روابط الصور والروابط لتكون متوافقة -->
     <meta property="og:title" content="🚀 رتب رغباتك الآن | مساعد تنسيق الثانوية العامة 2026">
     <meta property="og:description" content="متحتارش في التنسيق! جرب مجموعك وشوف الكليات المتاحة لك فوراً مع مراعاة التوزيع الجغرافي. هديتنا لطلاب الثانوية العامة.">
     <meta property="og:image" content="https://tansik-2026.netlify.app/header_bg.jpg">
@@ -67,12 +75,16 @@
                     </button>
 
                     <div id="share-menu" style="display:none; position:absolute; top:45px; right:0; background:white; border:1px solid #ddd; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); z-index:100; min-width:160px;">
+                        <!-- تعديل أزرار المشاركة لتنفيذ كود النسخ الجديد مباشرة وتسهيل الاختيارات -->
                         <button onclick="shareToPlatform('facebook')" style="display:block; width:100%; padding:10px; border:none; background:none; text-align:right; cursor:pointer; border-bottom:1px solid #eee;">🔵 فيسبوك</button>
-                        <button onclick="shareToPlatform('whatsapp')" style="display:block; width:100%; padding:10px; border:none; background:none; text-align:right; cursor:pointer;">🟢 واتساب</button>
+                        <button onclick="shareToPlatform('whatsapp')" style="display:block; width:100%; padding:10px; border:none; background:none; text-align:right; cursor:pointer; border-bottom:1px solid #eee;">🟢 واتساب</button>
+                        <button onclick="copyToClipboard()" style="display:block; width:100%; padding:10px; border:none; background:none; text-align:right; cursor:pointer; color: #1e3a8a; font-weight: bold;">📋 نسخ الرسالة والرابط</button>
                     </div>
                 </div>
             </div>
         </header>
+
+
         
         <div style="padding: 0 20px 20px 20px;">
             
