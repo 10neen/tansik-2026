@@ -419,37 +419,48 @@ function toggleDarkMode() {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
 }
+
+
 function shareToPlatform(platform) {
-    // الكود ده بيسحب الرابط اللي المستخدم فاتحه حالياً أياً كان (جيت هب أو نتفلاي)
+    // بيسحب الرابط الحالي أياً كان (جيت هب أو نتفلاي)
     const currentUrl = window.location.href; 
-    const text = "يا بطل، الموقع ده بيجيب الخلاصة في ترتيب رغبات التنسيق.. جربه بالمزورة!";
+    
+    // الرسالة الجديدة: مختصرة، مريحة، وبتطمن الطلاب
+    const shareMessage = "اعرف ممكن تدخل كلية ايه بموقع آمن وبسيط ومجاني: ";
     
     let shareUrl = "";
 
     if (platform === 'facebook') {
-        // فيسبوك محتاج رابط يبدأ بـ http أو https عشان ميطلعش Error
-        // لو المستخدم بيجرب "Offline" من جهازه، هنبعت رابط "جيت هب" كاحتياطي
+        // لو شغال أوفلاين كاحتياطي يبعت جيت هب، غير كده بيبعت الرابط الحالي
         const finalUrl = currentUrl.startsWith('http') ? currentUrl : "https://10neen.github.io/tansik-2026/";
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(finalUrl)}`;
     } 
     else if (platform === 'whatsapp') {
-        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + " " + currentUrl)}`;
+        // بيبعت الرسالة اللطيفة متبوعة بالرابط الحالي مباشرة
+        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + currentUrl)}`;
     }
 
     window.open(shareUrl, '_blank', 'width=600,height=400');
 }
+
 function toggleShareMenu() {
     const menu = document.getElementById('share-menu');
     if (menu) {
         menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
     }
 }
+
 function copyToClipboard() {
     const currentUrl = window.location.href;
-    navigator.clipboard.writeText(currentUrl).then(() => {
-        alert("✅ تم نسخ الرابط بنجاح.. ابعته لأصحابك!");
+    const shareMessage = "اعرف ممكن تدخل كلية ايه بموقع آمن وبسيط ومجاني: ";
+    
+    // بنسخ الرسالة مع الرابط عشان لو حب يعمل "لصق" في أي مكان يتبعت النص كامل
+    navigator.clipboard.writeText(shareMessage + currentUrl).then(() => {
+        alert("✅ تم نسخ رسالة المشاركة والرابط بنجاح.. ابعتها لأصحابك!");
     });
 }
+
+
 // ==========================================
 // 6. مراقب الأحداث (Event Listeners)
 // ==========================================
