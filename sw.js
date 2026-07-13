@@ -1,6 +1,6 @@
 // الإصدار 3.0 - بوابة الصعيدي للتنسيق (النسخة الذكية الفائقة)
 
-const CACHE_NAME = 'tansik-saidi-v3.0'; // 🛠️ تم التحديث للإصدار 3
+const CACHE_NAME = 'tansik-saidi-v3.1'; // 🛠️ تم التحديث للإصدار 3
 
 const assets = [
   './',
